@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^3.2.4",
+    "await-to-js": "^3.0.0",
+    "config": "^3.3.8",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "logging": "^3.3.0",
+    "mongoose": "^6.6.5",
+    "morgan": "~1.9.1",
+    "parse-error": "^0.2.0",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
+}
