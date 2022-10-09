@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 const postController=require('../controllers/post.controller');
 const commentController=require('../controllers/comment.controller');
+const userController=require('../controllers/user.controller');
+const auth=require('../middleware/auth');
 
 /* GET home page. */
-router.post('/post/create',postController.createPost);
-router.post('/comment/create',commentController.createComment);
+router.post('/user/signUp',userController.signUp);
+router.post('/user/signIn',userController.signIn);
+router.post('/post/create',auth.verifyToken,postController.createPost);
+router.post('/comment/create',auth.verifyToken,commentController.createComment);
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
