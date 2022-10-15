@@ -8,7 +8,10 @@ const auth=require('../middleware/auth');
 /* GET home page. */
 router.post('/user/signUp',userController.signUp);
 router.post('/user/signIn',userController.signIn);
+
 router.post('/post/create',auth.verifyToken,postController.createPost);
+router.get('/post/list',auth.verifyToken,postController.List);
+
 router.post('/comment/create',auth.verifyToken,commentController.createComment);
 
 router.get('/', function(req, res, next) {
