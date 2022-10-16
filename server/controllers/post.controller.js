@@ -40,6 +40,6 @@ const List=async(req,res)=>{
     logger.error("Post-Controller :error in fetching Post list");
 		return ReE(res, "Post-Controller:error in fetching Post List");
   }
-  return ReS(res, { message: "Successfully saved post", postList: JSON.stringify(postList)}, 201);
+  return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postList)}, 201);
 }
 module.exports.List=List;

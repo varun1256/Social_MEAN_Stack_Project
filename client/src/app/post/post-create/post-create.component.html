@@ -1,0 +1,12 @@
+<div class="box-first">
+<div class="box-second">
+    <form (ngSubmit)="postForm()">
+        <div class="box-third">
+            <mat-form-field appearance="fill">
+                <textarea matInput class="textarea" rows="8" cols="100" name="content" [(ngModel)]="post.content" placeholder="Write Text"></textarea>
+            </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary">Post</button>
+    </form>
+</div>
+</div>

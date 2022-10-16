@@ -6,6 +6,7 @@ const logger = require('../lib/logging');
 const e = require('express');
 
 const signUp = async (req, res) => {
+    console.log('3');
     if (!(req.body.email && req.body.password && req.body.first_name && req.body.last_name && req.body.phone_no)) {
         logger.error("User-Controller :All items are required");
         return ReE(res, "User-Controller:All itemns are required");
@@ -50,7 +51,7 @@ const signUp = async (req, res) => {
         logger.error("User-Controller :Error in saving user");
         return ReE(res, "User-Controller:Error in saving user");
     }
-    return ReS(res, { message: "Successfully Created User", user: user }, 201);
+    return ReS(res, { message: "Successfully Created User",user: user }, 201);
 }
 module.exports.signUp = signUp;
 
@@ -89,4 +90,19 @@ const signIn = async (req, res) => {
 
 }
 module.exports.signIn=signIn;
+
+const List=async(req,res)=>{
+    if(!req.user.user_id){
+      logger.error("User-Controller :User is not authenticated");
+          return ReE(res, "User-Controller:User is not authenticated");
+    }
+    [err,userList]=await to(User.find().sort({createdAt:-1}).limit(2).skip(4));
+    
+    if(err){
+      logger.error("User-Controller :error in fetching User list");
+          return ReE(res, "User-Controller:error in fetching User List");
+    }
+    return ReS(res, { message: "Successfully fetched user", userList: JSON.stringify(userList)}, 201);
+  }
+  module.exports.List=List;
 

@@ -1,0 +1,6 @@
+<div class="div1">
+   Header Work!!
+   <button  *ngIf="loggedIn()" color="primary" (click)="Logout()">Logout</button>
+   <button *ngIf="!loggedIn()" color="primary" [routerLink]="['/user/login']">LogIn</button>
+   <button *ngIf="!loggedIn()" color="primary" [routerLink]="['/user/signup']">SignUp</button>
+</div>
