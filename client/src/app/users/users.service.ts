@@ -28,4 +28,36 @@ export class UsersService {
       });
     });
    }
+
+   getProfile(id){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.get(environment.apiUrl + 'user/view?id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+       observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
+
+   RequestSend(body){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.post(environment.apiUrl + 'request/create',body, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
 }

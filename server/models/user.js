@@ -7,7 +7,8 @@ const User = mongoose.model('User', new mongoose.Schema({
     password: { type: String },
     token: { type: String },
     phone_no:{type:Number},
-    photo:{type:String}
+    photo:{type:String},
+    friends:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
 }, { timestamps: true }));
 
 module.exports = User;

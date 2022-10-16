@@ -9,7 +9,7 @@ import { UsersService } from '../users.service';
 export class UsersListComponent implements OnInit {
    UserList=[]
    isListEmpty:Boolean=true;
-   displayedCols = ['fname', 'Lname', 'email'];
+   displayedCols = ['fname', 'Lname', 'email','view'];
   constructor(private userService:UsersService) { 
     this.userService.List().subscribe(resp => {
       //   this._snackBar.openSnackBar('User Created.', 'X');
@@ -29,5 +29,7 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {
   }
- 
+  sendRequest(){
+
+  }
 }

@@ -1,6 +1,7 @@
 const {Post}  = require('../models');
 const { to, ReE, ReS } = require('../services/util.services');
 const logger = require("../lib/logging");
+const { User } = require('../models');
 
 const createPost= async(req,res)=>{
 let err,post;
@@ -36,11 +37,25 @@ const List=async(req,res)=>{
 		return ReE(res, "Post-Controller:User is not authenticated");
   }
   [err,postList]=await to(Post.find().sort({createdAt:-1}).limit(req.query.limit));
-  
+  let postJson = postList.map(post => {
+		return post.toObject();
+	});
+	for (let index in postJson) {
+		[err, user] = await to(User.findById(postJson[index].user_id));
+		if (err) return ReE(res, err.message);
+
+		postJson[index].user = {
+			name: user.first_name,
+      lname: user.last_name
+		
+		};
+
+	}
+
   if(err){
     logger.error("Post-Controller :error in fetching Post list");
 		return ReE(res, "Post-Controller:error in fetching Post List");
   }
-  return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postList)}, 201);
+  return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postJson)}, 201);
 }
 module.exports.List=List;

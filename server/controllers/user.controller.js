@@ -6,7 +6,6 @@ const logger = require('../lib/logging');
 const e = require('express');
 
 const signUp = async (req, res) => {
-    console.log('3');
     if (!(req.body.email && req.body.password && req.body.first_name && req.body.last_name && req.body.phone_no)) {
         logger.error("User-Controller :All items are required");
         return ReE(res, "User-Controller:All itemns are required");
@@ -105,4 +104,18 @@ const List=async(req,res)=>{
     return ReS(res, { message: "Successfully fetched user", userList: JSON.stringify(userList)}, 201);
   }
   module.exports.List=List;
+
+  const view=async(req,res)=>{
+    if(!req.user.user_id){
+        logger.error("User-Controller :User is not authenticated");
+            return ReE(res, "User-Controller:User is not authenticated");
+      }
+      let err,user;
+      [err,user]=await to(User.findById(req.query.id));
+      if(err){
+          return ReE(res, "Request-Controller:User is not fetched");
+      }
+      return ReS(res, { message: "Successfully fetched Profile", user: user }, 201);
+  }
+  module.exports.view=view;
 
