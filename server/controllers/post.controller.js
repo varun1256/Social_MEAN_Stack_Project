@@ -30,11 +30,12 @@ return ReS(res, { message: "Successfully saved post", post: post}, 201);
 module.exports.createPost=createPost;
 
 const List=async(req,res)=>{
+  console.log('3');
   if(!req.user.user_id){
     logger.error("Post-Controller :User is not authenticated");
 		return ReE(res, "Post-Controller:User is not authenticated");
   }
-  [err,postList]=await to(Post.find().sort({createdAt:-1}).limit(2).skip(4));
+  [err,postList]=await to(Post.find().sort({createdAt:-1}).limit(req.query.limit));
   
   if(err){
     logger.error("Post-Controller :error in fetching Post list");

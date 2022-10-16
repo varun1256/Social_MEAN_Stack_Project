@@ -11,7 +11,8 @@ import { AuthenticationService } from '../authentication/authentication.service'
 export class PostService {
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
-  create(postbody) {
+ 
+   create(postbody) {
     return new Observable((observer) => {
       console.log(this.authService.jwtToken());
       this.http.post(environment.apiUrl + 'post/create', postbody, {
@@ -20,6 +21,21 @@ export class PostService {
         }
       }).subscribe(resp => {
         this.router.navigate(['/']);
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+
+  list(limit){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.get(environment.apiUrl + 'post/list?limit='+limit, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
         observer.next(resp);
       }, err => {
         observer.error(err);

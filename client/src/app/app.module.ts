@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 
 import { AppComponent } from './app.component';
+import { UsersModule } from './users/users.module';
 import { LayoutModule } from './layout/layout.module';
 import { PostModule } from './post/post.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    UsersModule,
     LayoutModule,
     UtilityModule,
     FormsModule,

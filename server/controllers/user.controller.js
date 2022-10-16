@@ -96,7 +96,7 @@ const List=async(req,res)=>{
       logger.error("User-Controller :User is not authenticated");
           return ReE(res, "User-Controller:User is not authenticated");
     }
-    [err,userList]=await to(User.find().sort({createdAt:-1}).limit(2).skip(4));
+    [err,userList]=await to(User.find().sort({createdAt:-1}));
     
     if(err){
       logger.error("User-Controller :error in fetching User list");
