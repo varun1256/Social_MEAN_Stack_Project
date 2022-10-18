@@ -1,0 +1,15 @@
+<div *ngIf="!isListEmpty">
+<div *ngFor="let post of postList">
+    <br>
+   <div class="outer-box">
+      <h6> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
+    <div class="inner-box">
+        {{post.content}}
+    </div>
+ </div><br>
+</div>
+<button mat-button class="button1" color="primary" (click)="fetch()">Show More</button>
+</div>
+<div *ngIf="isListEmpty">
+    <h5>No Post </h5>
+</div>

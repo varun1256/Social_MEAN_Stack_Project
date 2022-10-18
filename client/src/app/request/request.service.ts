@@ -8,39 +8,38 @@ import { AuthenticationService } from '../authentication/authentication.service'
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class RequestService {
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
- 
-   create(postbody) {
+  constructor(private authService:AuthenticationService,private http:HttpClient) { }
+
+  List(){
     return new Observable((observer) => {
       console.log(this.authService.jwtToken());
-      this.http.post(environment.apiUrl + 'post/create', postbody, {
+      this.http.get(environment.apiUrl + 'request/list', {
         headers: {
           'authentication': this.authService.jwtToken()!
         }
       }).subscribe(resp => {
-        this.router.navigate(['/']);
-        observer.next(resp);
+       observer.next(resp);
       }, err => {
         observer.error(err);
       });
     });
-  }
+   }
 
-  list(limit){
+   RequestAccept(id){
     return new Observable((observer) => {
       console.log(this.authService.jwtToken());
-      this.http.get(environment.apiUrl + 'post/list?limit='+limit, {
+      this.http.get(environment.apiUrl + 'request/accept?id='+id, {
         headers: {
           'authentication': this.authService.jwtToken()!
         }
       }).subscribe(resp => {
-        observer.next(resp);
+       observer.next(resp);
       }, err => {
         observer.error(err);
       });
     });
-  }
 
+   }
 }

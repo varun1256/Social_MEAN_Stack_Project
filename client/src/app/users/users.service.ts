@@ -5,42 +5,59 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication/authentication.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class UsersService {
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
- 
-   create(postbody) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
+
+   }
+   List(){
     return new Observable((observer) => {
       console.log(this.authService.jwtToken());
-      this.http.post(environment.apiUrl + 'post/create', postbody, {
+      this.http.get(environment.apiUrl + 'user/list', {
         headers: {
           'authentication': this.authService.jwtToken()!
         }
       }).subscribe(resp => {
-        this.router.navigate(['/']);
+       observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+   }
+
+   getProfile(id){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.get(environment.apiUrl + 'user/view?id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+       observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
+
+   RequestSend(body){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.post(environment.apiUrl + 'request/create',body, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
         observer.next(resp);
       }, err => {
         observer.error(err);
       });
     });
-  }
 
-  list(limit){
-    return new Observable((observer) => {
-      console.log(this.authService.jwtToken());
-      this.http.get(environment.apiUrl + 'post/list?limit='+limit, {
-        headers: {
-          'authentication': this.authService.jwtToken()!
-        }
-      }).subscribe(resp => {
-        observer.next(resp);
-      }, err => {
-        observer.error(err);
-      });
-    });
-  }
-
+   }
 }

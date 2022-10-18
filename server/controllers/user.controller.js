@@ -6,7 +6,6 @@ const logger = require('../lib/logging');
 const e = require('express');
 
 const signUp = async (req, res) => {
-    console.log('3');
     if (!(req.body.email && req.body.password && req.body.first_name && req.body.last_name && req.body.phone_no)) {
         logger.error("User-Controller :All items are required");
         return ReE(res, "User-Controller:All itemns are required");
@@ -96,7 +95,7 @@ const List=async(req,res)=>{
       logger.error("User-Controller :User is not authenticated");
           return ReE(res, "User-Controller:User is not authenticated");
     }
-    [err,userList]=await to(User.find().sort({createdAt:-1}).limit(2).skip(4));
+    [err,userList]=await to(User.find().sort({createdAt:-1}));
     
     if(err){
       logger.error("User-Controller :error in fetching User list");
@@ -105,4 +104,35 @@ const List=async(req,res)=>{
     return ReS(res, { message: "Successfully fetched user", userList: JSON.stringify(userList)}, 201);
   }
   module.exports.List=List;
+
+  const view=async(req,res)=>{
+    if(!req.user.user_id){
+        logger.error("User-Controller :User is not authenticated");
+            return ReE(res, "User-Controller:User is not authenticated");
+      }
+      let err,user,relation;
+      [err,user]=await to(User.findById(req.query.id));
+      if(err){
+          return ReE(res, "Request-Controller:User is not fetched");
+      }
+      user.toObject();
+      relation=false;
+      self=false;
+      for(let i in user.friends){
+        if((user.friends[i])==req.user.user_id){
+                     relation=true;
+        }
+      }
+      if(user._id==req.user.user_id){
+        self=true;
+      }
+      [err,user]=await to(user.save());
+     
+      if(err){
+        return ReE(res, "Request-Controller:User is not Saved");
+    }
+
+      return ReS(res, { message: "Successfully fetched Profile", user: user ,relation:relation, self:self }, 201);
+  }
+  module.exports.view=view;
 
