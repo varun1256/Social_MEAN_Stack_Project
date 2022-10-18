@@ -30,6 +30,22 @@ export class RequestListComponent implements OnInit {
 
   ngOnInit(): void {
   }
+ accept(id){
+  console.log(id);
+  this.requestService.RequestAccept(id).subscribe(resp => {
+    //   this._snackBar.openSnackBar('User Created.', 'X');
+        window.location.reload();
+        if(this.requestList.length != 0) {
+          this.isListEmpty = false;
+        } else {
+          this.isListEmpty = true;
+        }
+       }, err => {
+        this.isListEmpty = true;
+    //   this._snackBar.openSnackBar(err.error.error, 'X')
+    
+     });
 
+ }
 
 }

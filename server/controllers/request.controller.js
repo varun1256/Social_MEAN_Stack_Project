@@ -57,6 +57,7 @@ const pendingRequest = async (req, res) => {
 module.exports.pendingRequest = pendingRequest;
 
 const removePending = async (req, res) => {
+    console.log('7');
     if (!req.user.user_id) {
         logger.error("Request-Controller :User is not authenticated");
         return ReE(res, "Request-Controller:User is not authenticated");
@@ -73,6 +74,10 @@ const removePending = async (req, res) => {
         return ReE(res, "Request-Controller:User is not fetched");
     }
     user.friends.push(request.deliver_to);
+    [err, user] = await to(user.save());
+    if (err) {
+        return ReE(res, "Request-Controller:User is not saved");
+    }
 
     let user2;
     [err, user2] = await to(User.findById(request.deliver_to));
@@ -80,6 +85,10 @@ const removePending = async (req, res) => {
         return ReE(res, "Request-Controller:User is not fetched");
     }
     user2.friends.push(request.createdBy);
+    [err, user2] = await to(user2.save());
+    if (err) {
+        return ReE(res, "Request-Controller:User is not saved");
+    }
 
     request.remove({ _id: request._id });
     return ReS(res, { message: "Successfully removed request" }, 201);

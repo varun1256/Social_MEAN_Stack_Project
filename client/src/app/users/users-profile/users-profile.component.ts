@@ -13,8 +13,11 @@ export class UsersProfileComponent implements OnInit {
     first_name:'',
     last_name:'',
     email:'',
-    phone_no:''
+    phone_no:'',
+    friends:[]
  }
+ relation:boolean
+ self:boolean
  us={
   id:""
  }
@@ -22,6 +25,9 @@ export class UsersProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.usersService.getProfile(params['id']).subscribe(resp => {
            this.user=resp['user'];
+           this.relation=resp['relation'];
+           this.self=resp['self'];
+            console.log(this.self);
       //   this._snackBar.openSnackBar("User profile fetched Successfully", "X");
            }, err => {
           //  this._snackBar.openSnackBar("User profile not available", "X");

@@ -19,6 +19,8 @@ router.post('/comment/create',auth.verifyToken,commentController.createComment);
 
 router.post('/request/create',auth.verifyToken,requestController.createRequest);
 router.get('/request/list',auth.verifyToken,requestController.pendingRequest);
+router.get('/request/accept',auth.verifyToken,requestController.removePending);
+
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });

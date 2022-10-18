@@ -110,12 +110,29 @@ const List=async(req,res)=>{
         logger.error("User-Controller :User is not authenticated");
             return ReE(res, "User-Controller:User is not authenticated");
       }
-      let err,user;
+      let err,user,relation;
       [err,user]=await to(User.findById(req.query.id));
       if(err){
           return ReE(res, "Request-Controller:User is not fetched");
       }
-      return ReS(res, { message: "Successfully fetched Profile", user: user }, 201);
+      user.toObject();
+      relation=false;
+      self=false;
+      for(let i in user.friends){
+        if((user.friends[i])==req.user.user_id){
+                     relation=true;
+        }
+      }
+      if(user._id==req.user.user_id){
+        self=true;
+      }
+      [err,user]=await to(user.save());
+     
+      if(err){
+        return ReE(res, "Request-Controller:User is not Saved");
+    }
+
+      return ReS(res, { message: "Successfully fetched Profile", user: user ,relation:relation, self:self }, 201);
   }
   module.exports.view=view;
 
