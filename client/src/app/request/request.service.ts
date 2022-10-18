@@ -42,4 +42,21 @@ export class RequestService {
     });
 
    }
+
+   RequestReject(id){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.get(environment.apiUrl + 'request/reject?id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+       observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
+
 }

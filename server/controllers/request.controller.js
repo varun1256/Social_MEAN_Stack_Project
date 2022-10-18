@@ -95,3 +95,19 @@ const removePending = async (req, res) => {
 
 }
 module.exports.removePending = removePending;
+
+const rejectPending= async(req,res)=>{
+    if (!req.user.user_id) {
+        logger.error("Request-Controller :User is not authenticated");
+        return ReE(res, "Request-Controller:User is not authenticated");
+    }
+    let err, request;
+    [err, request] = await to(Request.findById(req.query.id));
+    if (err) {
+        return ReE(res, "Request-Controller:Error in fetching request");
+    }
+    request.remove({ _id: request._id });
+    return ReS(res, { message: "Successfully removed request" }, 201);
+
+}
+module.exports.rejectPending=rejectPending;
