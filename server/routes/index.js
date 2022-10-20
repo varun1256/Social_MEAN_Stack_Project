@@ -3,7 +3,8 @@ var router = express.Router();
 const postController=require('../controllers/post.controller');
 const commentController=require('../controllers/comment.controller');
 const userController=require('../controllers/user.controller');
-const requestController=require('../controllers/request.controller')
+const requestController=require('../controllers/request.controller');
+const friendsController=require('../controllers/friends.controller');
 const auth=require('../middleware/auth');
 
 /* GET home page. */
@@ -22,6 +23,7 @@ router.get('/request/list',auth.verifyToken,requestController.pendingRequest);
 router.get('/request/accept',auth.verifyToken,requestController.removePending);
 router.get('/request/reject',auth.verifyToken,requestController.rejectPending);
 
+router.get('/friends/list',auth.verifyToken,friendsController.List);
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });

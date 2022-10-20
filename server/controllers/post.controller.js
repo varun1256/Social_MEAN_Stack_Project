@@ -31,7 +31,6 @@ return ReS(res, { message: "Successfully saved post", post: post}, 201);
 module.exports.createPost=createPost;
 
 const List=async(req,res)=>{
-  console.log('3');
   let friends=[]
   if(!req.user.user_id){
     logger.error("Post-Controller :User is not authenticated");
