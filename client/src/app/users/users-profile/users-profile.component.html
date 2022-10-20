@@ -7,6 +7,7 @@
       <h6>Phone no: {{user.phone_no}}</h6>
       <h6>Friends: {{user.friends.length}}</h6>
   </div>
-  <button *ngIf="(!relation) && (!self)" mat-button (click)="sendRequest()">Send Request</button>
+  <button *ngIf="(!relation) && (!self) && (!sent)" mat-button (click)="sendRequest()">Send Request</button>
   <p *ngIf="relation">You Both are friends</p>
+  <p *ngIf="(!relation) && (!self) && (sent)">Request Sent</p>
 </div><br>
