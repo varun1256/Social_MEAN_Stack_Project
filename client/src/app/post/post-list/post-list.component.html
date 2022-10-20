@@ -10,8 +10,12 @@
     <div class="inner-box">
         {{post.content}}
     </div>
- </div><br>
+ </div>
+ <app-comments-create [post_id]="post._id"></app-comments-create>
+ <app-comments-list [post_id]="post._id"></app-comments-list><br><br>
+
 </div>
+
 <button mat-button class="button1" color="primary" (click)="fetch()">Show More</button>
 </div>
 <div *ngIf="isListEmpty" class="text-center pt-3">

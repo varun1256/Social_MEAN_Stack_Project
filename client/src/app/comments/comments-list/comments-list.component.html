@@ -1,0 +1,19 @@
+<div class="button-box">
+<button mat-button (click)="show()" class="positioning">Show Comments</button>
+</div>
+<div *ngIf="showComments">
+    <div  *ngFor="let comment of commentList">
+        <div class="button-box">
+         {{comment.user.name}} {{comment.user.lname}}  : {{comment.content}}
+         </div>
+    </div>
+    <div class="button-box">
+        <button mat-button (click)="showMore()" class="positioning">Show More</button>
+    </div>
+   
+</div>
+<div *ngIf="isListEmpty && showComments">
+    <div class="button-box">
+      <span class="positioning">  No comments </span>
+        </div>
+</div>
