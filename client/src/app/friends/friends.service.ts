@@ -25,4 +25,20 @@ export class FriendsService {
       });
     });
    }
+
+   Unfriend(id){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.get(environment.apiUrl + 'friends/unfriend?friend_id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+       observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
 }

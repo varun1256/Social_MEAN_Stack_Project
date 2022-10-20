@@ -24,6 +24,7 @@ router.get('/request/accept',auth.verifyToken,requestController.removePending);
 router.get('/request/reject',auth.verifyToken,requestController.rejectPending);
 
 router.get('/friends/list',auth.verifyToken,friendsController.List);
+router.get('/friends/unfriend',auth.verifyToken,friendsController.Unfriend);
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
