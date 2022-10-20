@@ -14,6 +14,7 @@ import { appRoutes } from './app.route';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { FriendsModule } from './friends/friends.module';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    FriendsModule,
     UsersModule,
     RequestModule,
     LayoutModule,

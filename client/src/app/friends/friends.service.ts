@@ -8,14 +8,13 @@ import { AuthenticationService } from '../authentication/authentication.service'
 @Injectable({
   providedIn: 'root'
 })
-export class RequestService {
+export class FriendsService {
 
-  constructor(private authService:AuthenticationService,private http:HttpClient) { }
-
+  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
   List(){
     return new Observable((observer) => {
       console.log(this.authService.jwtToken());
-      this.http.get(environment.apiUrl + 'request/list', {
+      this.http.get(environment.apiUrl + 'friends/list', {
         headers: {
           'authentication': this.authService.jwtToken()!
         }
@@ -27,10 +26,10 @@ export class RequestService {
     });
    }
 
-   RequestAccept(id){
+   Unfriend(id){
     return new Observable((observer) => {
       console.log(this.authService.jwtToken());
-      this.http.get(environment.apiUrl + 'request/accept?id='+id, {
+      this.http.get(environment.apiUrl + 'friends/unfriend?friend_id='+id, {
         headers: {
           'authentication': this.authService.jwtToken()!
         }
@@ -42,21 +41,4 @@ export class RequestService {
     });
 
    }
-
-   RequestReject(id){
-    return new Observable((observer) => {
-      console.log(this.authService.jwtToken());
-      this.http.get(environment.apiUrl + 'request/reject?id='+id, {
-        headers: {
-          'authentication': this.authService.jwtToken()!
-        }
-      }).subscribe(resp => {
-       observer.next(resp);
-      }, err => {
-        observer.error(err);
-      });
-    });
-
-   }
-
 }
