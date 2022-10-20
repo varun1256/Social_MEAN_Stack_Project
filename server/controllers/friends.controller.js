@@ -43,7 +43,6 @@ const Unfriend = async (req, res) => {
             friends1.push(user.friends[i]);
         }
     }
-    console.log(friends1);
     let size1 = user.friends.length;
     for (let i = 0; i < size1; i++) {
         user.friends.pop();
@@ -70,7 +69,6 @@ const Unfriend = async (req, res) => {
             friends2.push(user2.friends[i]);
         }
     }
-    console.log(friends2);
     let size2 = user2.friends.length;
     for (let i = 0; i < size2; i++) {
         user2.friends.pop();
