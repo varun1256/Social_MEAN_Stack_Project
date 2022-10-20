@@ -32,11 +32,28 @@ module.exports.createPost=createPost;
 
 const List=async(req,res)=>{
   console.log('3');
+  let friends=[]
   if(!req.user.user_id){
     logger.error("Post-Controller :User is not authenticated");
 		return ReE(res, "Post-Controller:User is not authenticated");
   }
-  [err,postList]=await to(Post.find().sort({createdAt:-1}).limit(req.query.limit));
+  let user;
+  [err,user]=await to(User.findById(req.user.user_id));
+  if(err){
+    logger.error("Post-Controller :User is not found");
+		return ReE(res, "Post-Controller:User is not found");
+  }
+ 
+  for(let i=0;i<user.friends.length;i++){
+         friends.push(user.friends[i]);
+  }
+  friends.push(req.user.user_id);
+  
+  [err,postList]=await to(Post.find({'user_id':{'$in':friends}}).sort({createdAt:-1}).limit(req.query.limit));
+  if(err){
+    logger.error("Post-Controller :Postlist is not fetched");
+		return ReE(res, "Post-Controller:Postlist is not fetched");
+  }
   let postJson = postList.map(post => {
 		return post.toObject();
 	});
