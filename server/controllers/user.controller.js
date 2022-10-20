@@ -121,6 +121,7 @@ const view = async (req, res) => {
     relation = false;
     self = false;
     sent = false;
+    reqsted =false;
 
     for (let i in user.friends) {
         if ((user.friends[i]) == req.user.user_id) {
@@ -141,13 +142,23 @@ const view = async (req, res) => {
         sent = true;
     }
 
+    let found2
+    [err, found2] = await to(Request.find({ 'createdBy': req.query.id, 'deliver_to': req.user.user_id }));
+    if(err){
+        logger.error("User-Controller :Error in finding Request");
+        return ReE(res, "User-Controller:Error in finding Request");
+    }
+    if (found2.length!=0) {
+        reqsted = true;
+    }
+
     [err, user] = await to(user.save());
 
     if (err) {
         return ReE(res, "Request-Controller:User is not Saved");
     }
 
-    return ReS(res, { message: "Successfully fetched Profile", user: user, relation: relation, self: self, sent: sent }, 201);
+    return ReS(res, { message: "Successfully fetched Profile", user: user, relation: relation, self: self, sent: sent,reqsted:reqsted }, 201);
 }
 module.exports.view = view;
 

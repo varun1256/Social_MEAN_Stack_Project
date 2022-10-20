@@ -19,6 +19,7 @@ export class UsersProfileComponent implements OnInit {
  relation:boolean
  self:boolean
  sent:boolean
+ requested:boolean
  us={
   id:""
  }
@@ -29,7 +30,8 @@ export class UsersProfileComponent implements OnInit {
            this.relation=resp['relation'];
            this.self=resp['self'];
            this.sent=resp['sent'];
-            console.log(this.sent);
+           this.requested=resp['reqsted'];
+            console.log(this.requested);
       //   this._snackBar.openSnackBar("User profile fetched Successfully", "X");
            }, err => {
           //  this._snackBar.openSnackBar("User profile not available", "X");
