@@ -85,7 +85,7 @@ export class PostMypostsComponent implements OnInit {
   }
 
   LoadPostList() {
-    this.postService.list(this.limit).subscribe(resp => {
+    this.postService.mylist(this.limit).subscribe(resp => {
       //   this._snackBar.openSnackBar('User Created.', 'X');
       this.postList = JSON.parse(resp['postList']);
       console.log(this.postList);
