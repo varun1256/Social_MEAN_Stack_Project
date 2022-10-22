@@ -7,7 +7,7 @@
       <h6>Phone no: {{user.phone_no}}</h6>
       <h6>Friends: {{user.friends.length}}</h6>
   </div>
-  
-</div>
-<app-post-myposts></app-post-myposts>
+  <button mat-button (click)="showPost()">Posts</button>
+</div><br>
+<app-post-myposts *ngIf="showpost"></app-post-myposts>
 

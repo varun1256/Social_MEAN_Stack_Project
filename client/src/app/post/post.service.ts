@@ -83,4 +83,18 @@ export class PostService {
       });
     });
   }
+  removePost(id){
+    return new Observable((observer) => {
+      this.http.delete(environment.apiUrl + 'post/delete?post_id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { CommentService } from '../comment.service';
 
+
 @Component({
   selector: 'app-comments-create',
   templateUrl: './comments-create.component.html',

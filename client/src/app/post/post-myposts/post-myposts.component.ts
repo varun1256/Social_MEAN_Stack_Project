@@ -102,4 +102,29 @@ export class PostMypostsComponent implements OnInit {
     });
   }
 
+  deletePost(id){
+    this.postService.removePost(id).subscribe(resp => {
+      //   this._snackBar.openSnackBar('User Created.', 'X');
+    
+    }, err => {
+    
+      //   this._snackBar.openSnackBar(err.error.error, 'X')
+
+    });
+
+    this.postService.mylist(this.limit).subscribe(resp => {
+      //   this._snackBar.openSnackBar('User Created.', 'X');
+      this.postList = JSON.parse(resp['postList']);
+      console.log(this.postList);
+      if (this.postList.length != 0) {
+        this.isListEmpty = false;
+      } else {
+        this.isListEmpty = true;
+      }
+    }, err => {
+      this.isListEmpty = true;
+      //   this._snackBar.openSnackBar(err.error.error, 'X')
+
+    });
+  }
 }

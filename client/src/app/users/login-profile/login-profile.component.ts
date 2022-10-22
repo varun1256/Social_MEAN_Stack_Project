@@ -15,6 +15,7 @@ export class LoginProfileComponent implements OnInit {
     phone_no:'',
     friends:[]
  }
+ showpost=false;
   constructor(private usersService:UsersService,private router: Router, private route: ActivatedRoute) { 
     this.route.params.subscribe(params => {
       this.usersService.loginProfile().subscribe(resp => {
@@ -29,5 +30,7 @@ export class LoginProfileComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  showPost(){
+    this.showpost=!this.showpost
+  }
 }

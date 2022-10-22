@@ -1,12 +1,11 @@
 <section class="container-fluid py-5">
-    <div class="text-center">
-        <h3>My posts</h3>
-    </div>
+   
     <div *ngIf="!isListEmpty">
         <div *ngFor="let post of postList">
             <br>
             <div class="outer-box">
-                <h6> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
+                <h6 class="heading"> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
+                <button class="button-box" mat-button (click)="deletePost(post._id)">Delete</button>
                 <div class="inner-box">
                     {{post.content}}
                 </div>
