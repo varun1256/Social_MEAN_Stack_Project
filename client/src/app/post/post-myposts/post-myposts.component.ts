@@ -13,7 +13,7 @@ export class PostMypostsComponent implements OnInit {
   likebody = {
     post_id: ''
   }
-  constructor(private postService: PostService) { 
+  constructor(private postService: PostService) {
     this.postService.mylist(this.limit).subscribe(resp => {
       //   this._snackBar.openSnackBar('User Created.', 'X');
       this.postList = JSON.parse(resp['postList']);
@@ -59,60 +59,33 @@ export class PostMypostsComponent implements OnInit {
       //   this._snackBar.openSnackBar(err.error.error, 'X')
 
     });
-
-    this.postService.mylist(this.limit).subscribe(resp => {
-      //   this._snackBar.openSnackBar('User Created.', 'X');
-      this.postList = JSON.parse(resp['postList']);
-      console.log(this.postList);
-      if (this.postList.length != 0) {
-        this.isListEmpty = false;
-      } else {
-        this.isListEmpty = true;
-      }
-    }, err => {
-      this.isListEmpty = true;
-      //   this._snackBar.openSnackBar(err.error.error, 'X')
-
-    });
+    this.LoadPostList();
   }
 
   unlike(post_id) {
     this.postService.destroyLike(post_id).subscribe(resp => {
       //   this._snackBar.openSnackBar('User Created.', 'X');
-
     }, err => {
-
       //   this._snackBar.openSnackBar(err.error.error, 'X')
-
     });
-
-    this.postService.mylist(this.limit).subscribe(resp => {
-      //   this._snackBar.openSnackBar('User Created.', 'X');
-      this.postList = JSON.parse(resp['postList']);
-      console.log(this.postList);
-      if (this.postList.length != 0) {
-        this.isListEmpty = false;
-      } else {
-        this.isListEmpty = true;
-      }
-    }, err => {
-      this.isListEmpty = true;
-      //   this._snackBar.openSnackBar(err.error.error, 'X')
-
-    });
+    this.LoadPostList();
   }
 
-  deletePost(id){
+  deletePost(id) {
     this.postService.removePost(id).subscribe(resp => {
       //   this._snackBar.openSnackBar('User Created.', 'X');
-    
     }, err => {
-    
       //   this._snackBar.openSnackBar(err.error.error, 'X')
-
     });
+    this.LoadPostList();
+  }
 
-    this.postService.mylist(this.limit).subscribe(resp => {
+  addComment($event) {
+    this.LoadPostList();
+  }
+
+  LoadPostList() {
+    this.postService.list(this.limit).subscribe(resp => {
       //   this._snackBar.openSnackBar('User Created.', 'X');
       this.postList = JSON.parse(resp['postList']);
       console.log(this.postList);

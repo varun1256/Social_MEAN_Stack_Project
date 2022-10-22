@@ -16,7 +16,7 @@
                 Likes : {{post.likes.length}}
                 Comments : {{post.comments.length}}&nbsp;&nbsp;
                 </div>
-            <app-comments-create [post_id]="post._id"></app-comments-create>
+            <app-comments-create [post_id]="post._id" (newItemEvent)="addComment($event)"></app-comments-create>
             <app-comments-list [post_id]="post._id"></app-comments-list><br><br>
 </div>
 
