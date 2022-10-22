@@ -43,4 +43,32 @@ export class PostService {
     });
   }
 
+  createlike(body) {
+    return new Observable((observer) => {
+      this.http.post(environment.apiUrl + 'like/create', body, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+
+  destroyLike(post_id){
+    return new Observable((observer) => {
+      this.http.get(environment.apiUrl + 'like/destroy?post_id='+post_id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+
 }
