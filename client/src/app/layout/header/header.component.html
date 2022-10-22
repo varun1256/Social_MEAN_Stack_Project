@@ -1,13 +1,14 @@
 <div class="div1">
    Header Work!!
-   
-   <button  *ngIf="loggedIn()" color="primary"  [routerLink]="['/post/create']">Post</button>
-   <button  *ngIf="loggedIn()" color="primary"  [routerLink]="['/post/list']">Feed</button>
-   <button  *ngIf="loggedIn()" color="primary"  [routerLink]="['/users/list']">Users</button>
-   <button  *ngIf="loggedIn()" color="primary"  [routerLink]="['/friends/list']">Friends</button>
-   <button  *ngIf="loggedIn()" color="primary"  [routerLink]="['/request/list']">Requests</button>
+
+   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/post/create']">Post</button>
+   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/post/list']">Feed</button>
+   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/users/list']">Users</button>
+   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/friends/list']">Friends</button>
+   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/request/list']">Requests</button>
+   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/users/profile']">Profile</button>
    <button *ngIf="!loggedIn()" color="primary" [routerLink]="['/user/login']">LogIn</button>
    <button *ngIf="!loggedIn()" color="primary" [routerLink]="['/user/signup']">SignUp</button>
-   <button  *ngIf="loggedIn()" color="primary" (click)="Logout()">Logout</button>
+   <button *ngIf="loggedIn()" color="primary" (click)="Logout()">Logout</button>
 
 </div>

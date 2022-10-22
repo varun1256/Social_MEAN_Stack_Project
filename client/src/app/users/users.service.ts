@@ -60,4 +60,20 @@ export class UsersService {
     });
 
    }
+
+   loginProfile(){
+    return new Observable((observer) => {
+      console.log(this.authService.jwtToken());
+      this.http.get(environment.apiUrl + 'user/profile', {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+       observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
 }

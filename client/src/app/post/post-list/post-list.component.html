@@ -1,29 +1,28 @@
 <section class="container-fluid py-5">
-<div class="text-center">
-    <h2>Feed</h2>
-</div>
-<div *ngIf="!isListEmpty">
-<div *ngFor="let post of postList">
-    <br>
-   <div class="outer-box">
-      <h6> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
-    <div class="inner-box">
-        {{post.content}}
+    <div class="text-center">
+        <h2>Feed</h2>
     </div>
-    <button mat-button *ngIf="!post.liked" (click)="createLike(post._id)">Like</button>
-    <button mat-button *ngIf="post.liked" (click)="unlike(post._id)">Unlike</button>&nbsp;&nbsp;
-     
-    Likes:{{post.likes.length}}
-    Comments:{{post.comments.length}}
- </div>
- <app-comments-create [post_id]="post._id"></app-comments-create>
- <app-comments-list [post_id]="post._id"></app-comments-list><br><br>
+    <div *ngIf="!isListEmpty">
+        <div *ngFor="let post of postList">
+            <br>
+            <div class="outer-box">
+                <h6> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
+                <div class="inner-box">
+                    {{post.content}}
+                </div>
+                <button mat-button *ngIf="!post.liked" (click)="createLike(post._id)">Like</button>
+                <button mat-button *ngIf="post.liked" (click)="unlike(post._id)">Unlike</button>
+                Likes:{{post.likes.length}}
+                Comments:{{post.comments.length}}
+            </div>
+            <app-comments-create [post_id]="post._id"></app-comments-create>
+            <app-comments-list [post_id]="post._id"></app-comments-list><br><br>
 
-</div>
+        </div>
 
-<button mat-button class="button1" color="primary" (click)="fetch()">Show More</button>
-</div>
-<div *ngIf="isListEmpty" class="text-center pt-3">
-    <h5 class="text-danger m-0">No Post found</h5>
-</div>
+        <button mat-button class="button1" color="primary" (click)="fetch()">Show More</button>
+    </div>
+    <div *ngIf="isListEmpty" class="text-center pt-3">
+        <h5 class="text-danger m-0">No Post found</h5>
+    </div>
 </section>
