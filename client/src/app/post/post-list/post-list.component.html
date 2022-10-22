@@ -10,6 +10,11 @@
     <div class="inner-box">
         {{post.content}}
     </div>
+    <button mat-button *ngIf="!post.liked" (click)="createLike(post._id)">Like</button>
+    <button mat-button *ngIf="post.liked" (click)="unlike(post._id)">Unlike</button>&nbsp;&nbsp;
+     
+    Likes:{{post.likes.length}}
+    Comments:{{post.comments.length}}
  </div>
  <app-comments-create [post_id]="post._id"></app-comments-create>
  <app-comments-list [post_id]="post._id"></app-comments-list><br><br>
