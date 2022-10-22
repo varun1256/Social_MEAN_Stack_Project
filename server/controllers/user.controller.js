@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const { Request } = require('../models');
 const { to, ReE, ReS } = require('../services/util.services');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -50,7 +51,7 @@ const signUp = async (req, res) => {
         logger.error("User-Controller :Error in saving user");
         return ReE(res, "User-Controller:Error in saving user");
     }
-    return ReS(res, { message: "Successfully Created User",user: user }, 201);
+    return ReS(res, { message: "Successfully Created User", user: user }, 201);
 }
 module.exports.signUp = signUp;
 
@@ -64,20 +65,20 @@ const signIn = async (req, res) => {
     if (!user) {
         return ReE(res, "User Not found!! Please SignUp");
     }
-    if(await bcrypt.compare(req.body.password,user.password)){
-       
-    }else{
+    if (await bcrypt.compare(req.body.password, user.password)) {
+
+    } else {
         return ReE(res, "Password is Incorrect");
     }
-        // Create token
-        email = req.body.email
-        token = jwt.sign(
-            { user_id: user._id, email },
-            'secret',
-            {
-                expiresIn: "2h",
-            }
-        );
+    // Create token
+    email = req.body.email
+    token = jwt.sign(
+        { user_id: user._id, email },
+        'secret',
+        {
+            expiresIn: "2h",
+        }
+    );
 
     user.token = token;
     [err, user] = await to(user.save());
@@ -88,51 +89,76 @@ const signIn = async (req, res) => {
     return ReS(res, { message: "Successfully LoggedIn", user: user }, 201);
 
 }
-module.exports.signIn=signIn;
+module.exports.signIn = signIn;
 
-const List=async(req,res)=>{
-    if(!req.user.user_id){
-      logger.error("User-Controller :User is not authenticated");
-          return ReE(res, "User-Controller:User is not authenticated");
-    }
-    [err,userList]=await to(User.find().sort({createdAt:-1}));
-    
-    if(err){
-      logger.error("User-Controller :error in fetching User list");
-          return ReE(res, "User-Controller:error in fetching User List");
-    }
-    return ReS(res, { message: "Successfully fetched user", userList: JSON.stringify(userList)}, 201);
-  }
-  module.exports.List=List;
-
-  const view=async(req,res)=>{
-    if(!req.user.user_id){
+const List = async (req, res) => {
+    if (!req.user.user_id) {
         logger.error("User-Controller :User is not authenticated");
-            return ReE(res, "User-Controller:User is not authenticated");
-      }
-      let err,user,relation;
-      [err,user]=await to(User.findById(req.query.id));
-      if(err){
-          return ReE(res, "Request-Controller:User is not fetched");
-      }
-      user.toObject();
-      relation=false;
-      self=false;
-      for(let i in user.friends){
-        if((user.friends[i])==req.user.user_id){
-                     relation=true;
+        return ReE(res, "User-Controller:User is not authenticated");
+    }
+    [err, userList] = await to(User.find().sort({ createdAt: -1 }));
+
+    if (err) {
+        logger.error("User-Controller :error in fetching User list");
+        return ReE(res, "User-Controller:error in fetching User List");
+    }
+    return ReS(res, { message: "Successfully fetched user", userList: JSON.stringify(userList) }, 201);
+}
+module.exports.List = List;
+
+const view = async (req, res) => {
+
+    if (!req.user.user_id) {
+        logger.error("User-Controller :User is not authenticated");
+        return ReE(res, "User-Controller:User is not authenticated");
+    }
+    let err, user, relation;
+    [err, user] = await to(User.findById(req.query.id));
+    if (err) {
+        return ReE(res, "Request-Controller:User is not fetched");
+    }
+    user.toObject();
+    relation = false;
+    self = false;
+    sent = false;
+    reqsted =false;
+
+    for (let i in user.friends) {
+        if ((user.friends[i]) == req.user.user_id) {
+            relation = true;
         }
-      }
-      if(user._id==req.user.user_id){
-        self=true;
-      }
-      [err,user]=await to(user.save());
-     
-      if(err){
+    }
+
+    if (user._id == req.user.user_id) {
+        self = true;
+    }
+     let found
+    [err, found] = await to(Request.find({ 'createdBy': req.user.user_id, 'deliver_to': req.query.id }));
+    if(err){
+        logger.error("User-Controller :Error in finding Request");
+        return ReE(res, "User-Controller:Error in finding Request");
+    }
+    if (found.length!=0) {
+        sent = true;
+    }
+
+    let found2
+    [err, found2] = await to(Request.find({ 'createdBy': req.query.id, 'deliver_to': req.user.user_id }));
+    if(err){
+        logger.error("User-Controller :Error in finding Request");
+        return ReE(res, "User-Controller:Error in finding Request");
+    }
+    if (found2.length!=0) {
+        reqsted = true;
+    }
+
+    [err, user] = await to(user.save());
+
+    if (err) {
         return ReE(res, "Request-Controller:User is not Saved");
     }
 
-      return ReS(res, { message: "Successfully fetched Profile", user: user ,relation:relation, self:self }, 201);
-  }
-  module.exports.view=view;
+    return ReS(res, { message: "Successfully fetched Profile", user: user, relation: relation, self: self, sent: sent,reqsted:reqsted }, 201);
+}
+module.exports.view = view;
 

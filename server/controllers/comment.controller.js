@@ -2,6 +2,7 @@ const { Comment } = require('../models');
 const { to, ReE, ReS } = require('../services/util.services');
 const logger = require("../lib/logging");
 const { Post } = require('../models');
+const { User } = require('../models');
 
 const createComment = async (req, res) => {
     let err, comment;
@@ -37,3 +38,33 @@ const createComment = async (req, res) => {
     return ReS(res, { message: "Successfully saved comment", comment: comment }, 201);
 }
 module.exports.createComment = createComment;
+
+const List = async (req, res) => {
+     if (!req.user.user_id) {
+        logger.error("Comments-Controller :User is not authenticated");
+        return ReE(res, "Comments-Controller:User is not authenticated");
+    }
+     [err, commentsList] = await to(Comment.find({ 'post_id': req.query.post_id}).sort({ createdAt: -1 }).limit(req.query.limit));
+    if (err) {
+        logger.error("Comments-Controller :error in fetching Comments list");
+        return ReE(res, "Comments-Controller:error in fetching Comments List");
+    }
+
+    let commentJson = commentsList.map(comment => {
+		return comment.toObject();
+	});
+	for (let index in commentJson) {
+		[err, user] = await to(User.findById(commentJson[index].user_id));
+		if (err) return ReE(res, err.message);
+
+		commentJson[index].user = {
+			name: user.first_name,
+            lname: user.last_name
+		
+		};
+
+	}
+
+    return ReS(res, { message: "Successfully fetched Comments", commentsList: JSON.stringify(commentJson) }, 201);
+}
+module.exports.List = List;

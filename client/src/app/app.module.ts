@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FriendsModule } from './friends/friends.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CommentsModule } from './comments/comments.module';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     FriendsModule,
+    CommentsModule,
     UsersModule,
     RequestModule,
     LayoutModule,

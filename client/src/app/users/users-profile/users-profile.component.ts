@@ -18,6 +18,8 @@ export class UsersProfileComponent implements OnInit {
  }
  relation:boolean
  self:boolean
+ sent:boolean
+ requested:boolean
  us={
   id:""
  }
@@ -27,7 +29,9 @@ export class UsersProfileComponent implements OnInit {
            this.user=resp['user'];
            this.relation=resp['relation'];
            this.self=resp['self'];
-            console.log(this.self);
+           this.sent=resp['sent'];
+           this.requested=resp['reqsted'];
+            console.log(this.requested);
       //   this._snackBar.openSnackBar("User profile fetched Successfully", "X");
            }, err => {
           //  this._snackBar.openSnackBar("User profile not available", "X");
@@ -41,6 +45,7 @@ export class UsersProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.us.id=params['id'];
       this.usersService.RequestSend(this.us).subscribe(resp => {
+        window.location.reload();
            //this.user=resp['user'];
       //   this._snackBar.openSnackBar("User profile fetched Successfully", "X");
            }, err => {
