@@ -70,5 +70,17 @@ export class PostService {
       });
     });
   }
-
+  mylist(limit){
+    return new Observable((observer) => {
+      this.http.get(environment.apiUrl + 'post/myposts?limit='+limit, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
 }

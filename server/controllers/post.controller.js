@@ -85,3 +85,41 @@ const List = async (req, res) => {
   return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postJson) }, 201);
 }
 module.exports.List = List;
+
+const MyPosts=async(req,res)=>{
+  if (!req.user.user_id) {
+    logger.error("Post-Controller :User is not authenticated");
+    return ReE(res, "Post-Controller:User is not authenticated");
+  }
+  [err, postList] = await to(Post.find({'user_id':req.user.user_id}).sort({ createdAt: -1 }).limit(req.query.limit));
+  if (err) {
+    logger.error("Post-Controller :Postlist is not fetched");
+    return ReE(res, "Post-Controller:Postlist is not fetched");
+  }
+  let postJson = postList.map(post => {
+    return post.toObject();
+  });
+  for (let index in postJson) {
+    [err, user] = await to(User.findById(postJson[index].user_id));
+    if (err) return ReE(res, err.message);
+
+    postJson[index].user = {
+      name: user.first_name,
+      lname: user.last_name
+
+    };
+
+  }
+  for (let index in postJson) {
+    let liked
+     liked= postJson[index].likes.find((id)=>{return id==req.user.user_id});
+     if(liked){
+      postJson[index].liked=true;
+     }else{
+      postJson[index].liked=false;
+     }
+   }
+  return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postJson) }, 201);
+
+}
+module.exports.MyPosts=MyPosts;

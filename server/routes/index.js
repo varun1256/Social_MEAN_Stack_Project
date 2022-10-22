@@ -17,6 +17,7 @@ router.get('/user/profile',auth.verifyToken,userController.profile);
 
 router.post('/post/create',auth.verifyToken,postController.createPost);
 router.get('/post/list',auth.verifyToken,postController.List);
+router.get('/post/myposts',auth.verifyToken,postController.MyPosts);
 
 router.post('/comment/create',auth.verifyToken,commentController.createComment);
 router.get('/comment/list',auth.verifyToken,commentController.List);

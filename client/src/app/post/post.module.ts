@@ -9,12 +9,14 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { PostListComponent } from './post-list/post-list.component';
+import { PostMypostsComponent } from './post-myposts/post-myposts.component';
 
 
 @NgModule({
   declarations: [
     PostCreateComponent,
-    PostListComponent
+    PostListComponent,
+    PostMypostsComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,9 @@ import { PostListComponent } from './post-list/post-list.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports:[
+    PostMypostsComponent
   ]
 })
 export class PostModule { }
