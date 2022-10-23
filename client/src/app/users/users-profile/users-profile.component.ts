@@ -16,6 +16,7 @@ export class UsersProfileComponent implements OnInit {
     phone_no:'',
     friends:[]
  }
+ showpost=false;
  relation:boolean
  self:boolean
  sent:boolean
@@ -56,4 +57,8 @@ export class UsersProfileComponent implements OnInit {
 
 
    }
+   showPost(){
+    this.showpost=!this.showpost
+  }
+  
 }

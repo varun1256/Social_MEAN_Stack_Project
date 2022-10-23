@@ -70,9 +70,9 @@ export class PostService {
       });
     });
   }
-  mylist(limit){
+  mylist(limit,id){
     return new Observable((observer) => {
-      this.http.get(environment.apiUrl + 'post/myposts?limit='+limit, {
+      this.http.get(environment.apiUrl + 'post/myposts?limit='+limit+'&id='+id, {
         headers: {
           'authentication': this.authService.jwtToken()!
         }

@@ -92,7 +92,13 @@ const MyPosts = async (req, res) => {
     logger.error("Post-Controller :User is not authenticated");
     return ReE(res, "Post-Controller:User is not authenticated");
   }
-  [err, postList] = await to(Post.find({ 'user_id': req.user.user_id }).sort({ createdAt: -1 }).limit(req.query.limit));
+  let id=req.user.user_id;
+  let showdelete=true
+  if(req.query.id!='undefined'){
+    id=req.query.id;
+    showdelete=false
+  }
+  [err, postList] = await to(Post.find({ 'user_id': id }).sort({ createdAt: -1 }).limit(req.query.limit));
   if (err) {
     logger.error("Post-Controller :Postlist is not fetched");
     return ReE(res, "Post-Controller:Postlist is not fetched");
@@ -120,7 +126,7 @@ const MyPosts = async (req, res) => {
       postJson[index].liked = false;
     }
   }
-  return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postJson) }, 201);
+  return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postJson) ,showdelete:showdelete}, 201);
 
 }
 module.exports.MyPosts = MyPosts;

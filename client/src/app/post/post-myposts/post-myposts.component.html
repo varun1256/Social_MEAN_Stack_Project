@@ -5,7 +5,7 @@
             <br>
             <div class="outer-box">
                 <h6 class="heading"> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
-                <button class="button-box" mat-button (click)="deletePost(post._id)">Delete</button>
+                <button class="button-box" *ngIf="showdelete" mat-button (click)="deletePost(post._id)">Delete</button>
                 <div class="inner-box">
                     {{post.content}}
                 </div>
