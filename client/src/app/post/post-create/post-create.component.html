@@ -1,14 +1,31 @@
-<div class="box-first">
+<!-- <div class="box-first">
 <div class="box-second">
-    <form (ngSubmit)="postForm()">
-        <div class="box-third">
-            <mat-form-field appearance="fill">
-                <textarea matInput class="textarea" rows="8" cols="100" name="content" [(ngModel)]="post.content" placeholder="Write Text"></textarea>
+    <form> -->
+    <!-- <form (ngSubmit)="postForm()"> -->
+        <!-- <div class="box-third" class="form-box">
+            <mat-form-field appearance="fill" >
+                <img class='img-box' src="http://localhost:3000/{{file.path}}" height="195" width="250">
+                <textarea matInput class="textarea" rows="7" cols="100" name="content" [(ngModel)]="post.content" placeholder="Write Text"></textarea>
+                <input type="file" name="image" (change)="onChange($event)">
+                <button (click)="uploadImage()">Save Image</button>
             </mat-form-field>
         </div>
-        <button mat-raised-button color="primary">Post</button>
+        <button mat-raised-button (click)="postForm()" color="primary">Post</button> 
     </form>
+    
 </div>
 
+</div> -->
+<br>
+<div class="outer-box">
+   
+    <div class="inner-box">
+        <img class='img-box' src="http://localhost:3000/{{post.filePath}}" height="195" width="250">
+        <textarea matInput class="textarea" rows="7" cols="35" name="content" [(ngModel)]="post.content" placeholder="Write Text"></textarea>
+     </div>
+     <input type="file" name="image" (change)="onChange($event)">
+     <button (click)="uploadImage()">Save Image</button><br><br>
+     <button mat-raised-button (click)="postForm()" color="primary">Post</button> 
+  
 </div>
-
+<br>

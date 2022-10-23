@@ -6,6 +6,8 @@ const userController=require('../controllers/user.controller');
 const requestController=require('../controllers/request.controller');
 const friendsController=require('../controllers/friends.controller');
 const likesController=require('../controllers/likes.controller');
+const {upload}=require('../middleware/multer');
+const {imageUpload}=require('../middleware/multer');
 const auth=require('../middleware/auth');
 
 /* GET home page. */
@@ -13,9 +15,13 @@ router.post('/user/signUp',userController.signUp);
 router.post('/user/signIn',userController.signIn);
 router.get('/user/list',auth.verifyToken,userController.List);
 router.get('/user/view',auth.verifyToken,userController.view);
+router.get('/user/profile',auth.verifyToken,userController.profile);
 
 router.post('/post/create',auth.verifyToken,postController.createPost);
 router.get('/post/list',auth.verifyToken,postController.List);
+router.get('/post/myposts',auth.verifyToken,postController.MyPosts);
+router.delete('/post/delete',auth.verifyToken,postController.deletePost);
+router.post('/uploadImage',imageUpload.single('image'),postController.fileupload);
 
 router.post('/comment/create',auth.verifyToken,commentController.createComment);
 router.get('/comment/list',auth.verifyToken,commentController.List);

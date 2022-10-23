@@ -9,6 +9,8 @@
   </div>
   <button *ngIf="(!relation) && (!self) && (!sent) && (!requested)" mat-button (click)="sendRequest()">Send Request</button>
   <p *ngIf="relation">You Both are friends</p>
+  <button mat-button *ngIf="relation" (click)="showPost()">Posts</button>
   <p *ngIf="(!relation) && (!self) && (sent)">Request Sent</p>
   <p *ngIf="(!relation) && (!self) && (!sent) && (requested)">Requested</p>
 </div><br>
+<app-post-myposts *ngIf="showpost"></app-post-myposts>

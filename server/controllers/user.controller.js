@@ -121,7 +121,7 @@ const view = async (req, res) => {
     relation = false;
     self = false;
     sent = false;
-    reqsted =false;
+    reqsted = false;
 
     for (let i in user.friends) {
         if ((user.friends[i]) == req.user.user_id) {
@@ -132,23 +132,23 @@ const view = async (req, res) => {
     if (user._id == req.user.user_id) {
         self = true;
     }
-     let found
+    let found
     [err, found] = await to(Request.find({ 'createdBy': req.user.user_id, 'deliver_to': req.query.id }));
-    if(err){
+    if (err) {
         logger.error("User-Controller :Error in finding Request");
         return ReE(res, "User-Controller:Error in finding Request");
     }
-    if (found.length!=0) {
+    if (found.length != 0) {
         sent = true;
     }
 
     let found2
     [err, found2] = await to(Request.find({ 'createdBy': req.query.id, 'deliver_to': req.user.user_id }));
-    if(err){
+    if (err) {
         logger.error("User-Controller :Error in finding Request");
         return ReE(res, "User-Controller:Error in finding Request");
     }
-    if (found2.length!=0) {
+    if (found2.length != 0) {
         reqsted = true;
     }
 
@@ -158,7 +158,21 @@ const view = async (req, res) => {
         return ReE(res, "Request-Controller:User is not Saved");
     }
 
-    return ReS(res, { message: "Successfully fetched Profile", user: user, relation: relation, self: self, sent: sent,reqsted:reqsted }, 201);
+    return ReS(res, { message: "Successfully fetched Profile", user: user, relation: relation, self: self, sent: sent, reqsted: reqsted }, 201);
 }
 module.exports.view = view;
 
+const profile = async(req, res)=>{
+    if (!req.user.user_id) {
+        logger.error("User-Controller :User is not authenticated");
+        return ReE(res, "User-Controller:User is not authenticated");
+    }
+    let err, user
+    [err, user] = await to(User.findById(req.user.user_id));
+    if (err) {
+        return ReE(res, "Request-Controller:User is not fetched");
+    }
+    return ReS(res, { message: "Successfully fetched Profile", user: user }, 201);
+
+}
+module.exports.profile=profile;

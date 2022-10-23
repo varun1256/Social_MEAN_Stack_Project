@@ -70,5 +70,35 @@ export class PostService {
       });
     });
   }
-
+  mylist(limit,id){
+    return new Observable((observer) => {
+      this.http.get(environment.apiUrl + 'post/myposts?limit='+limit+'&id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+  removePost(id){
+    return new Observable((observer) => {
+      this.http.delete(environment.apiUrl + 'post/delete?post_id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+ 
+  upload(url, file) {
+    console.log("uploading file")
+    return this.http.post(environment.apiUrl + url, file);
+  }
 }

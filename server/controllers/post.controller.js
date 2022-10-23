@@ -1,7 +1,9 @@
 const { Post } = require('../models');
+const { Comment } = require('../models');
 const { to, ReE, ReS } = require('../services/util.services');
 const logger = require("../lib/logging");
 const { User } = require('../models');
+
 
 const createPost = async (req, res) => {
   let err, post;
@@ -69,13 +71,13 @@ const List = async (req, res) => {
   }
   for (let index in postJson) {
     let liked
-     liked= postJson[index].likes.find((id)=>{return id==req.user.user_id});
-     if(liked){
-      postJson[index].liked=true;
-     }else{
-      postJson[index].liked=false;
-     }
-   }
+    liked = postJson[index].likes.find((id) => { return id == req.user.user_id });
+    if (liked) {
+      postJson[index].liked = true;
+    } else {
+      postJson[index].liked = false;
+    }
+  }
 
 
   if (err) {
@@ -85,3 +87,68 @@ const List = async (req, res) => {
   return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postJson) }, 201);
 }
 module.exports.List = List;
+
+const MyPosts = async (req, res) => {
+  if (!req.user.user_id) {
+    logger.error("Post-Controller :User is not authenticated");
+    return ReE(res, "Post-Controller:User is not authenticated");
+  }
+  let id=req.user.user_id;
+  let showdelete=true
+  if(req.query.id!='undefined'){
+    id=req.query.id;
+    showdelete=false
+  }
+  [err, postList] = await to(Post.find({ 'user_id': id }).sort({ createdAt: -1 }).limit(req.query.limit));
+  if (err) {
+    logger.error("Post-Controller :Postlist is not fetched");
+    return ReE(res, "Post-Controller:Postlist is not fetched");
+  }
+  let postJson = postList.map(post => {
+    return post.toObject();
+  });
+  for (let index in postJson) {
+    [err, user] = await to(User.findById(postJson[index].user_id));
+    if (err) return ReE(res, err.message);
+
+    postJson[index].user = {
+      name: user.first_name,
+      lname: user.last_name
+
+    };
+
+  }
+  for (let index in postJson) {
+    let liked
+    liked = postJson[index].likes.find((id) => { return id == req.user.user_id });
+    if (liked) {
+      postJson[index].liked = true;
+    } else {
+      postJson[index].liked = false;
+    }
+  }
+  return ReS(res, { message: "Successfully fetched post", postList: JSON.stringify(postJson) ,showdelete:showdelete}, 201);
+
+}
+module.exports.MyPosts = MyPosts;
+
+const deletePost = async (req, res) => {
+  console.log('6');
+  if (!req.user.user_id) {
+    logger.error("Post-Controller :User is not authenticated");
+    return ReE(res, "Post-Controller:User is not authenticated");
+  }
+  await Comment.deleteMany({ 'post_id': req.query.post_id });
+  await Post.deleteOne({'_id':req.query.post_id});
+  return ReS(res, { message: "Post Successfully deleted" }, 201); 
+}
+module.exports.deletePost=deletePost;
+
+const fileupload=async(req, res) => {
+  console.log('3',req.file) //returns undefined
+
+ 
+  return ReS(res, { message: "File Uploaded Successfully",file:req.file }, 201);
+  
+}
+module.exports.fileupload=fileupload
