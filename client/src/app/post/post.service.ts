@@ -96,5 +96,9 @@ export class PostService {
       });
     });
   }
-
+ 
+  upload(url, file) {
+    console.log("uploading file")
+    return this.http.post(environment.apiUrl + url, file);
+  }
 }

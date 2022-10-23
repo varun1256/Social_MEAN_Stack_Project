@@ -8,8 +8,14 @@ import { PostService } from '../post.service';
 })
 export class PostCreateComponent implements OnInit {
   post={
-    content:""
+    content:"",
+    filePath:""
   }
+  file={
+    path:""
+  }
+ uploadedImage
+ formData = new FormData();
   constructor(private postService:PostService) { }
 
   ngOnInit(): void {
@@ -22,4 +28,24 @@ export class PostCreateComponent implements OnInit {
     
      });
  }
+ 
+ onChange(event) {
+  this.uploadedImage = event.target.files[0]
+}
+uploadImage(){
+  if (this.uploadedImage) {
+    this.formData.append('image', this.uploadedImage, this.uploadedImage.name)
+    console.log(this.formData.getAll('image')) //confirms file is being uploaded properly
+    console.log(this.uploadedImage);
+    console.log(this.uploadedImage.name);
+    this.postService.upload('uploadImage/', this.formData).subscribe(resp => {
+      this.file=resp['file'];
+      console.log(this.file);
+      this.post.filePath=this.file.path
+      console.log(this.post);
+    },err=>{
+
+    });
+}
+}
 }

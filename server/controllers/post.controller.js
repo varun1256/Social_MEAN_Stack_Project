@@ -4,6 +4,7 @@ const { to, ReE, ReS } = require('../services/util.services');
 const logger = require("../lib/logging");
 const { User } = require('../models');
 
+
 const createPost = async (req, res) => {
   let err, post;
   if (!req.user.user_id) {
@@ -142,3 +143,12 @@ const deletePost = async (req, res) => {
   return ReS(res, { message: "Post Successfully deleted" }, 201); 
 }
 module.exports.deletePost=deletePost;
+
+const fileupload=async(req, res) => {
+  console.log('3',req.file) //returns undefined
+
+ 
+  return ReS(res, { message: "File Uploaded Successfully",file:req.file }, 201);
+  
+}
+module.exports.fileupload=fileupload

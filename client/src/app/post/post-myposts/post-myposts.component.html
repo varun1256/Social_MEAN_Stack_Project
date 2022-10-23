@@ -7,6 +7,7 @@
                 <h6 class="heading"> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
                 <button class="button-box" *ngIf="showdelete" mat-button (click)="deletePost(post._id)">Delete</button>
                 <div class="inner-box">
+                    <img class='img-box' src="http://localhost:3000/{{post.filePath}}" height="170" width="250">
                     {{post.content}}
                 </div>
                 <button mat-button *ngIf="!post.liked" (click)="createLike(post._id)">Like</button>
