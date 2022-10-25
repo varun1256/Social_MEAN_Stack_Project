@@ -76,4 +76,19 @@ export class UsersService {
     });
 
    }
+
+   editUser(body){
+    return new Observable((observer) => {
+      this.http.put(environment.apiUrl + 'user/edit',body, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
 }

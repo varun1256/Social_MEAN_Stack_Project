@@ -7,7 +7,12 @@
       <h6>Phone no: {{user.phone_no}}</h6>
       <h6>Friends: {{user.friends.length}}</h6>
   </div>
-  <button mat-button (click)="showPost()">Posts</button>
+  <button mat-button (click)="showPost()">Posts</button>&nbsp;
+  <button mat-button (click)="showSetting()">Manage Account</button>
 </div><br>
 <app-post-myposts *ngIf="showpost"></app-post-myposts>
+<div *ngIf="showsetting" class="edit-profile">
+  <button [routerLink]="['/users/edit/' + user._id]"  >Edit Profile</button>
+</div>
+<br>
 

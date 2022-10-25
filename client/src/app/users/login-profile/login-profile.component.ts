@@ -9,6 +9,7 @@ import { UsersService } from '../users.service';
 })
 export class LoginProfileComponent implements OnInit {
   user={
+    _id:'',
     first_name:'',
     last_name:'',
     email:'',
@@ -16,6 +17,7 @@ export class LoginProfileComponent implements OnInit {
     friends:[]
  }
  showpost=false;
+ showsetting=false;
   constructor(private usersService:UsersService,private router: Router, private route: ActivatedRoute) { 
     this.route.params.subscribe(params => {
       this.usersService.loginProfile().subscribe(resp => {
@@ -32,5 +34,8 @@ export class LoginProfileComponent implements OnInit {
   }
   showPost(){
     this.showpost=!this.showpost
+  }
+  showSetting(){
+   this.showsetting=!this.showsetting
   }
 }

@@ -16,6 +16,7 @@ router.post('/user/signIn',userController.signIn);
 router.get('/user/list',auth.verifyToken,userController.List);
 router.get('/user/view',auth.verifyToken,userController.view);
 router.get('/user/profile',auth.verifyToken,userController.profile);
+router.put('/user/edit',auth.verifyToken,userController.editProfile);
 
 router.post('/post/create',auth.verifyToken,postController.createPost);
 router.get('/post/list',auth.verifyToken,postController.List);
