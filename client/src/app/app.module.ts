@@ -9,7 +9,6 @@ import { LayoutModule } from './layout/layout.module';
 import { PostModule } from './post/post.module';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { UtilityModule } from './utility/utility.module';
 import { appRoutes } from './app.route';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,7 +29,6 @@ import { CommentsModule } from './comments/comments.module';
     UsersModule,
     RequestModule,
     LayoutModule,
-    UtilityModule,
     FormsModule,
     AuthenticationModule,
     BrowserAnimationsModule,

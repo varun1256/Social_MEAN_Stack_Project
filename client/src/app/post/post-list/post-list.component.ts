@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
+import { SnackBarService } from '../../utility/snack-bar.service';
 
 @Component({
   selector: 'app-post-list',
@@ -13,19 +14,20 @@ export class PostListComponent implements OnInit {
   likebody = {
     post_id: ''
   }
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private _snackBar: SnackBarService) {
     this.postService.list(this.limit).subscribe(resp => {
-      //   this._snackBar.openSnackBar('User Created.', 'X');
       this.postList = JSON.parse(resp['postList']);
       console.log(this.postList);
       if (this.postList.length != 0) {
         this.isListEmpty = false;
+        this._snackBar.openSnackBar('Post List Fetched', 'X');
       } else {
         this.isListEmpty = true;
+        this._snackBar.openSnackBar('Post List is Empty', 'X');
       }
     }, err => {
       this.isListEmpty = true;
-      //   this._snackBar.openSnackBar(err.error.error, 'X')
+      this._snackBar.openSnackBar(err.error.error, 'X')
 
     });
   }
@@ -35,7 +37,7 @@ export class PostListComponent implements OnInit {
   fetch() {
     this.limit = this.limit + 2;
     this.postService.list(this.limit).subscribe(resp => {
-      //   this._snackBar.openSnackBar('User Created.', 'X');
+      this._snackBar.openSnackBar('Post List Fetched', 'X');
       this.postList = JSON.parse(resp['postList']);
       console.log(this.postList);
       if (this.postList.length != 0) {
@@ -45,7 +47,7 @@ export class PostListComponent implements OnInit {
       }
     }, err => {
       this.isListEmpty = true;
-      //   this._snackBar.openSnackBar(err.error.error, 'X')
+      this._snackBar.openSnackBar(err.error.error, 'X')
 
     });
   }
@@ -54,18 +56,18 @@ export class PostListComponent implements OnInit {
     console.log(post_id);
     this.likebody.post_id = post_id;
     this.postService.createlike(this.likebody).subscribe(resp => {
-      //   this._snackBar.openSnackBar('User Created.', 'X');
+      this._snackBar.openSnackBar('Liked', 'X');
     }, err => {
-      //   this._snackBar.openSnackBar(err.error.error, 'X')
+      this._snackBar.openSnackBar(err.error.error, 'X')
     });
     this.LoadPostList();
   }
 
   unlike(post_id) {
     this.postService.destroyLike(post_id).subscribe(resp => {
-      //   this._snackBar.openSnackBar('User Created.', 'X');
+      this._snackBar.openSnackBar('Unliked', 'X');
     }, err => {
-      //   this._snackBar.openSnackBar(err.error.error, 'X')
+      this._snackBar.openSnackBar(err.error.error, 'X')
     });
     this.LoadPostList();
   }
@@ -76,7 +78,7 @@ export class PostListComponent implements OnInit {
 
   LoadPostList() {
     this.postService.list(this.limit).subscribe(resp => {
-      //   this._snackBar.openSnackBar('User Created.', 'X');
+
       this.postList = JSON.parse(resp['postList']);
       console.log(this.postList);
       if (this.postList.length != 0) {
@@ -86,7 +88,7 @@ export class PostListComponent implements OnInit {
       }
     }, err => {
       this.isListEmpty = true;
-      //   this._snackBar.openSnackBar(err.error.error, 'X')
+      this._snackBar.openSnackBar(err.error.error, 'X')
 
     });
   }
