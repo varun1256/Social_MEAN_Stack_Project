@@ -87,6 +87,7 @@ export class PostMypostsComponent implements OnInit {
       //   this._snackBar.openSnackBar(err.error.error, 'X')
     });
     this.LoadPostList();
+    this.LoadPostList();
   }
 
   addComment($event) {
