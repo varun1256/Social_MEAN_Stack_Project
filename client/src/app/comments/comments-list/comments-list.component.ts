@@ -25,7 +25,7 @@ export class CommentsListComponent implements OnInit {
       console.log(this.commentList);
       if (this.commentList.length != 0) {
         this.isListEmpty = false;
-        this._snackBar.openSnackBar('Comment List Fetched', 'X');
+       
       } else {
         this.isListEmpty = true;
         this._snackBar.openSnackBar('No Comments', 'X');
@@ -39,7 +39,7 @@ export class CommentsListComponent implements OnInit {
   showMore() {
     this.limit = this.limit + 2;
     this.commentsService.list(this.limit, this.post_id).subscribe(resp => {
-        this._snackBar.openSnackBar('Comments Fetched', 'X');
+        
       this.commentList = JSON.parse(resp['commentsList']);
       console.log(this.commentList);
       if (this.commentList.length != 0) {
