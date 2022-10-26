@@ -176,3 +176,25 @@ const profile = async(req, res)=>{
 
 }
 module.exports.profile=profile;
+
+const editProfile=async(req,res)=>{
+    if (!req.user.user_id) {
+        logger.error("User-Controller :User is not authenticated");
+        return ReE(res, "User-Controller:User is not authenticated");
+    }
+    let err, user
+    [err, user] = await to(User.findById(req.user.user_id));
+    if (err) {
+        return ReE(res, "User-Controller:User is not fetched");
+    }
+   user.first_name=req.body.first_name;
+   user.last_name=req.body.last_name;
+   user.phone_no=req.body.phone_no;
+   
+    [err,user]=await to(user.save());
+    if(err){
+        return ReE(res, "User-Controller:Error in saving updated user");
+    }
+    return ReS(res, { message: "Successfully updated Profile", user: user }, 201);
+}
+module.exports.editProfile=editProfile;

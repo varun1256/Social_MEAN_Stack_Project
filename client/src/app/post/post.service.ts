@@ -20,7 +20,7 @@ export class PostService {
           'authentication': this.authService.jwtToken()!
         }
       }).subscribe(resp => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/post/list']);
         observer.next(resp);
       }, err => {
         observer.error(err);

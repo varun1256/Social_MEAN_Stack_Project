@@ -1,0 +1,23 @@
+<div>
+    <form (ngSubmit)="edit()">
+        <div>
+            First Name:
+            <mat-form-field appearance="fill">
+                <input matInput name="firstname" [(ngModel)]="user.first_name" placeholder="First Name">
+            </mat-form-field>
+        </div>
+        <div>
+            Last Name:
+            <mat-form-field appearance="fill">
+                <input matInput name="lastname" [(ngModel)]="user.last_name" placeholder="Last Name">
+            </mat-form-field>
+        </div>
+        <div>
+            Phone Number:
+            <mat-form-field appearance="fill">
+                <input matInput name="Phonenumber" [(ngModel)]="user.phone_no" placeholder="Phone No">
+            </mat-form-field>
+        </div>
+        <button mat-button color="primary" (click)="edit()">Edit</button>
+    </form>
+</div>
