@@ -10,7 +10,7 @@ import { SnackBarService } from '../../utility/snack-bar.service';
 export class UsersListComponent implements OnInit {
   UserList = []
   isListEmpty: Boolean = true;
-  displayedCols = ['fname', 'Lname', 'email', 'view'];
+  displayedCols = ['photo','fname', 'Lname', 'email', 'view'];
   constructor(private userService: UsersService, private _snackBar: SnackBarService) {
     this.userService.List().subscribe(resp => {
 

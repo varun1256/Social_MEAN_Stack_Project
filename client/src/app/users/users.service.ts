@@ -91,4 +91,25 @@ export class UsersService {
     });
 
    }
+
+   upload(url, file) {
+    console.log("uploading file")
+    return this.http.post(environment.apiUrl + url, file);
+  }
+
+  Remove(){
+    return new Observable((observer) => {
+      this.http.delete(environment.apiUrl + 'removeProfile', {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
+
 }

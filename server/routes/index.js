@@ -18,6 +18,9 @@ router.get('/user/view',auth.verifyToken,userController.view);
 router.get('/user/profile',auth.verifyToken,userController.profile);
 router.put('/user/edit',auth.verifyToken,userController.editProfile);
 
+router.post('/uploadProfile',imageUpload.single('image'),userController.fileupload);
+router.delete('/removeProfile',auth.verifyToken,userController.removeFile);
+
 router.post('/post/create',auth.verifyToken,postController.createPost);
 router.get('/post/list',auth.verifyToken,postController.List);
 router.get('/post/myposts',auth.verifyToken,postController.MyPosts);

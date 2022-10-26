@@ -1,4 +1,8 @@
-<div>
+<div><br>
+    <img class='img-box' src="http://localhost:3000/{{user.filePath}}" height="195" width="250">&nbsp;
+    <input  type="file" name="image" (change)="onChange($event)">
+    <button mat-button  (click)="uploadImage()">Save Image</button><br><br>
+    <button mat-button  (click)="removePhoto()">Remove Photo</button>
     <form (ngSubmit)="edit()">
         <div>
             First Name:
@@ -17,7 +21,7 @@
             <mat-form-field appearance="fill">
                 <input matInput name="Phonenumber" [(ngModel)]="user.phone_no" placeholder="Phone No">
             </mat-form-field>
-        </div>
+        </div><br>
         <button mat-button color="primary" (click)="edit()">Edit</button>
     </form>
 </div>

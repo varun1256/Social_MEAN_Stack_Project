@@ -64,7 +64,8 @@ const List = async (req, res) => {
 
     postJson[index].user = {
       name: user.first_name,
-      lname: user.last_name
+      lname: user.last_name,
+      filePath:user.filePath
 
     };
 
@@ -156,7 +157,7 @@ const deletePost = async (req, res) => {
 module.exports.deletePost = deletePost;
 
 const fileupload = async (req, res) => {
-  console.log('3', req.file) //returns undefined
+  console.log('3', req.file) 
 
 
   return ReS(res, { message: "File Uploaded Successfully", file: req.file }, 201);

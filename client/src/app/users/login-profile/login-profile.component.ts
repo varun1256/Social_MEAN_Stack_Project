@@ -15,6 +15,7 @@ export class LoginProfileComponent implements OnInit {
     last_name: '',
     email: '',
     phone_no: '',
+    filePath:'',
     friends: []
   }
   showpost = false;
