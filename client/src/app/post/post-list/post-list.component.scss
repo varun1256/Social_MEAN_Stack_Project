@@ -1,5 +1,5 @@
 .outer-box{
-    height: 50vh;
+    height: 54vh;
     width: 50vw;
     border:2px blue solid;
     margin-left: auto;
@@ -9,7 +9,7 @@
 }
 .inner-box{
     margin-top: 5vh;
-    height: 35vh;
+    height: 38vh;
     width:49.8vw;
     border:1px black solid;
     background-color: white;
@@ -23,4 +23,11 @@
 }
 .img-box{
   border:2px black solid
+}
+.profile-box{
+    display: inline-block;
+    border-radius: 50%;
+}
+.heading-box{
+    display: inline-block;
 }

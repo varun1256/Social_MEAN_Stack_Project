@@ -64,7 +64,8 @@ const List = async (req, res) => {
 
     postJson[index].user = {
       name: user.first_name,
-      lname: user.last_name
+      lname: user.last_name,
+      filePath:user.filePath
 
     };
 
