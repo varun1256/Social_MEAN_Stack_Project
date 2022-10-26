@@ -4,6 +4,8 @@ const { to, ReE, ReS } = require('../services/util.services');
 const logger = require("../lib/logging");
 const { User } = require('../models');
 const fs = require('fs');
+const nodemailer = require('../lib/mailer/nodemailer');
+
 
 const createPost = async (req, res) => {
   let err, post;
@@ -28,6 +30,18 @@ const createPost = async (req, res) => {
   if (err) {
     return ReE(res, err, 422);
   }
+  let user
+  [err, user] = await to(User.findById(req.user.user_id));
+  if (err) {
+    return ReE(res, err, 422);
+  }
+  let mailDetails={};
+  mailDetails.to = user.email;
+  mailDetails.subject='Post Creation';
+  mailDetails.text='Your Post has been Created.Kindly report if it is not created by you';
+
+  nodemailer.sendmail(mailDetails);
+
   return ReS(res, { message: "Successfully saved post", post: post }, 201);
 }
 module.exports.createPost = createPost;
@@ -65,7 +79,7 @@ const List = async (req, res) => {
     postJson[index].user = {
       name: user.first_name,
       lname: user.last_name,
-      filePath:user.filePath
+      filePath: user.filePath
 
     };
 
@@ -157,7 +171,7 @@ const deletePost = async (req, res) => {
 module.exports.deletePost = deletePost;
 
 const fileupload = async (req, res) => {
-  console.log('3', req.file) 
+  console.log('3', req.file)
 
 
   return ReS(res, { message: "File Uploaded Successfully", file: req.file }, 201);
