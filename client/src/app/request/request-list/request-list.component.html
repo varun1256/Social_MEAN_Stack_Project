@@ -5,6 +5,10 @@
 		</div>
 		<div *ngIf="!isListEmpty" class="mat-elevation-z2">
            <table class="table-responsive-custom" mat-table [dataSource]="requestList" >
+			<ng-container matColumnDef="photo">
+				<th mat-header-cell *matHeaderCellDef> </th>
+				<td mat-cell *matCellDef="let element" > <img class='img-box' src="http://localhost:3000/{{element.user.filePath}}" height="40" width="40"></td>
+			</ng-container>
 				<ng-container matColumnDef="fname">
 					<th mat-header-cell *matHeaderCellDef>First Name </th>
 					<td mat-cell *matCellDef="let element" > {{element.user.first_name}} </td>

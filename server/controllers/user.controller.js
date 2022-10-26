@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const logger = require('../lib/logging');
 const e = require('express');
+const fs = require('fs');
 
 const signUp = async (req, res) => {
     if (!(req.body.email && req.body.password && req.body.first_name && req.body.last_name && req.body.phone_no)) {
@@ -162,7 +163,7 @@ const view = async (req, res) => {
 }
 module.exports.view = view;
 
-const profile = async(req, res)=>{
+const profile = async (req, res) => {
     if (!req.user.user_id) {
         logger.error("User-Controller :User is not authenticated");
         return ReE(res, "User-Controller:User is not authenticated");
@@ -175,9 +176,9 @@ const profile = async(req, res)=>{
     return ReS(res, { message: "Successfully fetched Profile", user: user }, 201);
 
 }
-module.exports.profile=profile;
+module.exports.profile = profile;
 
-const editProfile=async(req,res)=>{
+const editProfile = async (req, res) => {
     if (!req.user.user_id) {
         logger.error("User-Controller :User is not authenticated");
         return ReE(res, "User-Controller:User is not authenticated");
@@ -187,14 +188,38 @@ const editProfile=async(req,res)=>{
     if (err) {
         return ReE(res, "User-Controller:User is not fetched");
     }
-   user.first_name=req.body.first_name;
-   user.last_name=req.body.last_name;
-   user.phone_no=req.body.phone_no;
-   
-    [err,user]=await to(user.save());
-    if(err){
+    user.filePath=req.body.filePath;
+    user.first_name = req.body.first_name;
+    user.last_name = req.body.last_name;
+    user.phone_no = req.body.phone_no;
+
+    [err, user] = await to(user.save());
+    if (err) {
         return ReE(res, "User-Controller:Error in saving updated user");
     }
     return ReS(res, { message: "Successfully updated Profile", user: user }, 201);
 }
-module.exports.editProfile=editProfile;
+module.exports.editProfile = editProfile;
+
+const fileupload = async (req, res) => {
+    console.log('3', req.file)
+
+    return ReS(res, { message: "File Uploaded Successfully", file: req.file }, 201);
+
+}
+module.exports.fileupload = fileupload;
+
+const removeFile=async(req,res)=>{
+    let user
+    [err, user] = await to(User.findById(req.user.user_id));
+    if (err) {
+      return ReE(res, err, 422);
+    }
+    fs.unlink(`${user.filePath}`, () => {
+        console.log("test");
+      });
+     
+      return ReS(res, { message: "Profile Photo Removed" }, 201);
+
+}
+module.exports.removeFile=removeFile;
