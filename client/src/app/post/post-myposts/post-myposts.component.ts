@@ -25,7 +25,7 @@ export class PostMypostsComponent implements OnInit {
         console.log(this.postList);
         if (this.postList.length != 0) {
           this.isListEmpty = false;
-          this._snackBar.openSnackBar('Your posts are Fetched', 'X');
+          
         } else {
           this.isListEmpty = true;
           this._snackBar.openSnackBar('You have no post', 'X');
@@ -44,7 +44,7 @@ export class PostMypostsComponent implements OnInit {
     this.limit = this.limit + 2;
     this.route.params.subscribe(params => {
       this.postService.mylist(this.limit, params['id']).subscribe(resp => {
-        this._snackBar.openSnackBar('your posts are fetched', 'X');
+      
         this.postList = JSON.parse(resp['postList']);
         this.showdelete = resp['showdelete'];
         console.log(this.postList);
@@ -65,7 +65,7 @@ export class PostMypostsComponent implements OnInit {
     console.log(post_id);
     this.likebody.post_id = post_id;
     this.postService.createlike(this.likebody).subscribe(resp => {
-      this._snackBar.openSnackBar('Liked', 'X');
+     
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
 
@@ -75,7 +75,7 @@ export class PostMypostsComponent implements OnInit {
 
   unlike(post_id) {
     this.postService.destroyLike(post_id).subscribe(resp => {
-      this._snackBar.openSnackBar('Unliked', 'X');
+      
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
     });
