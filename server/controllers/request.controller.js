@@ -40,6 +40,7 @@ const pendingRequest = async (req, res) => {
         if (err) return ReE(res, err.message);
 
         requestJson[index].user = {
+            _id:user._id,
             first_name: user.first_name,
             last_name: user.last_name,
             email:user.email,
