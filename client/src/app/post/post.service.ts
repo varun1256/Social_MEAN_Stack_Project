@@ -101,4 +101,18 @@ export class PostService {
     console.log("uploading file")
     return this.http.post(environment.apiUrl + url, file);
   }
+
+  likeList(id){
+    return new Observable((observer) => {
+      this.http.get(environment.apiUrl + 'like/list?post_id='+id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
 }

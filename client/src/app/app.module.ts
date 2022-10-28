@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-
 import { AppComponent } from './app.component';
 import { UsersModule } from './users/users.module';
 import { RequestModule } from './request/request.module';
@@ -14,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FriendsModule } from './friends/friends.module';
+import { LikeModule } from './like/like.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CommentsModule } from './comments/comments.module';
 
@@ -28,6 +28,7 @@ import { CommentsModule } from './comments/comments.module';
     CommentsModule,
     UsersModule,
     RequestModule,
+    LikeModule,
     LayoutModule,
     FormsModule,
     AuthenticationModule,

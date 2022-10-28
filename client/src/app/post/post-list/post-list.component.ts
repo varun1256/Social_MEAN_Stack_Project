@@ -20,7 +20,7 @@ export class PostListComponent implements OnInit {
       console.log(this.postList);
       if (this.postList.length != 0) {
         this.isListEmpty = false;
-       
+        this._snackBar.openSnackBar('Posts are Fetched', 'X');
       } else {
         this.isListEmpty = true;
         this._snackBar.openSnackBar('Post List is Empty', 'X');
