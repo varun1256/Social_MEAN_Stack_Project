@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendsService } from '../friends.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-friends-list',
@@ -8,14 +9,16 @@ import { SnackBarService } from '../../utility/snack-bar.service';
   styleUrls: ['./friends-list.component.scss']
 })
 export class FriendsListComponent implements OnInit {
-  FriendsList = []
+   FriendsList=[]
   isListEmpty: Boolean = true;
   displayedCols = ['photo','fname', 'Lname', 'email', 'view', 'unfriend'];
+  dataSource!:MatTableDataSource<any>
 
   constructor(private friendsService: FriendsService, private _snackBar: SnackBarService) {
     this.friendsService.List().subscribe(resp => {
-      this.FriendsList = JSON.parse(resp['friendsList']);
-      console.log(this.FriendsList);
+      let friendsList = JSON.parse(resp['friendsList']);
+      this.FriendsList=JSON.parse(resp['friendsList']);
+      this.dataSource=new MatTableDataSource(friendsList);
       if (this.FriendsList.length != 0) {
         this.isListEmpty = false;
         this._snackBar.openSnackBar('Friend List Fetched', 'X');
@@ -45,6 +48,10 @@ export class FriendsListComponent implements OnInit {
 
     });
 
+  }
+  applyFilter($event:any){
+    // const filterValue = (event.target as HTMLInputElement).value;
+     this.dataSource.filter = $event.target.value;
   }
 
   ngOnInit(): void {

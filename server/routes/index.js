@@ -40,6 +40,7 @@ router.get('/friends/unfriend',auth.verifyToken,friendsController.Unfriend);
 
 router.post('/like/create',auth.verifyToken,likesController.createLike);
 router.get('/like/destroy',auth.verifyToken,likesController.unLike);
+router.get('/likes/list',auth.verifyToken,likesController.likeList);
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });

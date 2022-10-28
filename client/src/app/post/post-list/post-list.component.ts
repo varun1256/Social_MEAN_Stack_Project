@@ -20,7 +20,7 @@ export class PostListComponent implements OnInit {
       console.log(this.postList);
       if (this.postList.length != 0) {
         this.isListEmpty = false;
-        this._snackBar.openSnackBar('Post List Fetched', 'X');
+       
       } else {
         this.isListEmpty = true;
         this._snackBar.openSnackBar('Post List is Empty', 'X');
@@ -37,7 +37,7 @@ export class PostListComponent implements OnInit {
   fetch() {
     this.limit = this.limit + 2;
     this.postService.list(this.limit).subscribe(resp => {
-      this._snackBar.openSnackBar('Post List Fetched', 'X');
+     
       this.postList = JSON.parse(resp['postList']);
       console.log(this.postList);
       if (this.postList.length != 0) {
@@ -56,7 +56,7 @@ export class PostListComponent implements OnInit {
     console.log(post_id);
     this.likebody.post_id = post_id;
     this.postService.createlike(this.likebody).subscribe(resp => {
-      this._snackBar.openSnackBar('Liked', 'X');
+     
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
     });
@@ -65,7 +65,7 @@ export class PostListComponent implements OnInit {
 
   unlike(post_id) {
     this.postService.destroyLike(post_id).subscribe(resp => {
-      this._snackBar.openSnackBar('Unliked', 'X');
+      
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
     });
