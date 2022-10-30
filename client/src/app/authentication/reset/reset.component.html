@@ -1,0 +1,11 @@
+<div *ngIf="!showotp"><br>
+Email : <input mat-input apperance="full" [(ngModel)]="user.email"><br><br>
+<button mat-raised-button color="primary" (click)="verifyEmail()">Verify Email</button>
+</div>
+<br>
+<div *ngIf="showotp"><br>
+OTP : <input mat-input apperance="full"><br><br>
+<button mat-raised-button color="primary" (click)="sendotp()">Send OTP</button><br>
+</div>
+<br>
+

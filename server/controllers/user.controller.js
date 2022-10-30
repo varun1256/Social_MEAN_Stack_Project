@@ -1,5 +1,7 @@
 const { User } = require('../models');
 const { Request } = require('../models');
+const otpGenerator = require('otp-generator')
+const twilioLib=require('../lib/twilio')
 const { to, ReE, ReS } = require('../services/util.services');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -188,7 +190,7 @@ const editProfile = async (req, res) => {
     if (err) {
         return ReE(res, "User-Controller:User is not fetched");
     }
-    user.filePath=req.body.filePath;
+    user.filePath = req.body.filePath;
     user.first_name = req.body.first_name;
     user.last_name = req.body.last_name;
     user.phone_no = req.body.phone_no;
@@ -209,17 +211,51 @@ const fileupload = async (req, res) => {
 }
 module.exports.fileupload = fileupload;
 
-const removeFile=async(req,res)=>{
+const removeFile = async (req, res) => {
     let user
     [err, user] = await to(User.findById(req.user.user_id));
     if (err) {
-      return ReE(res, err, 422);
+        return ReE(res, err, 422);
     }
     fs.unlink(`${user.filePath}`, () => {
         console.log("test");
-      });
-     
-      return ReS(res, { message: "Profile Photo Removed" }, 201);
+    });
+
+    return ReS(res, { message: "Profile Photo Removed" }, 201);
 
 }
-module.exports.removeFile=removeFile;
+module.exports.removeFile = removeFile;
+
+const checkEmail = async (req, res) => {
+    displayotp=false;
+    if (!(req.body.email)) {
+        logger.error("User-Controller :Email is required");
+        return ReE(res, "User-Controller:Email is required");
+    }
+    let err,oldUser
+    [err, oldUser] = await to(User.findOne({ email: req.body.email }));
+    if (!oldUser) {
+        return ReE(res, "User Doesn't Exhist");
+    }
+     displayotp=true;
+    return ReS(res, { message: "Profile Photo Removed" ,displayotp : displayotp}, 201);
+}
+module.exports.checkEmail=checkEmail;
+
+const sendotp=async(req,res)=>{
+    if (!(req.body.email)) {
+        logger.error("User-Controller :Email is required");
+        return ReE(res, "User-Controller:Email is required");
+    }
+  let  OTP= otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+   let err,user
+   [err, user] = await to(User.findOne({ email: req.body.email }));
+   if (err) {
+       return ReE(res, "User-Controller:Error in finding User");
+   }
+   //user.phone_no= "+91"+user.phone_no;
+   content='Your OTP for resetting Password :'+OTP;
+  twilioLib.sendOTP(content,user.phone_no);
+  return ReS(res, { message: "OTP sent" ,OTP:OTP}, 201);
+}
+module.exports.sendotp=sendotp;

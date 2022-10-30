@@ -47,4 +47,24 @@ jwtToken(){
   }
   return null;
 }
+
+checkEmail(body){
+  return new Observable((observer) => {
+    this.http.post(environment.apiUrl + 'user/checkemail',body).subscribe(resp => {
+       observer.next(resp);
+    }, err => {
+      observer.error(err);
+    });
+  });
+}
+sendOTP(body){
+  return new Observable((observer) => {
+    this.http.post(environment.apiUrl + 'user/sendotp',body).subscribe(resp => {
+       observer.next(resp);
+    }, err => {
+      observer.error(err);
+    });
+  });
+}
+
 }
