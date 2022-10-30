@@ -62,9 +62,51 @@ const List = async (req, res) => {
             lname: user.last_name
 		
 		};
+        if(user._id==req.user.user_id){
+            commentJson[index].self=true;
+        }else{
+            commentJson[index].self=false;
+        }
 
 	}
 
     return ReS(res, { message: "Successfully fetched Comments", commentsList: JSON.stringify(commentJson) }, 201);
 }
 module.exports.List = List;
+
+const remove=async(req,res)=>{
+    let post_id = req.query.post_id;
+    let comment_id=req.query.comment_id;
+    if (!req.user.user_id) {
+        logger.error("Comments-Controller :User is not authenticated");
+        return ReE(res, "Comments-Controller:User is not authenticated");
+    }
+
+    let post
+    [err, post] = await to(Post.findById(post_id));
+    if (err) {
+        logger.error("Comments-Controller :Post is not found");
+        return ReE(res, "Comments-Controller:Post is not found");
+    }
+
+    let comments1 = []
+    for (let i = 0; i < post.comments.length; i++) {
+        if (post.comments[i] != comment_id) {
+            comments1.push(post.comments[i]);
+        }
+    }
+    let size1 = post.comments.length;
+    for (let i = 0; i < size1; i++) {
+        post.comments.pop();
+    }
+    for (let i = 0; i < comments1.length; i++) {
+        post.comments.push(comments1[i]);
+    }
+    [err, post] = await to(post.save());
+    if (err) {
+        return ReE(res, "Comments-Controller:Post is not saved");
+    }
+    await Comment.deleteOne({ '_id': comment_id });
+    return ReS(res, { message: "Comment Successfully deleted" }, 201);
+}
+module.exports.remove=remove;

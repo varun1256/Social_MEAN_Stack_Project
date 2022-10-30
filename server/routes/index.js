@@ -29,6 +29,7 @@ router.post('/uploadImage',imageUpload.single('image'),postController.fileupload
 
 router.post('/comment/create',auth.verifyToken,commentController.createComment);
 router.get('/comment/list',auth.verifyToken,commentController.List);
+router.delete('/comment/delete',auth.verifyToken,commentController.remove);
 
 router.post('/request/create',auth.verifyToken,requestController.createRequest);
 router.get('/request/list',auth.verifyToken,requestController.pendingRequest);

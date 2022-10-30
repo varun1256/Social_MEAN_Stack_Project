@@ -54,4 +54,15 @@ export class CommentsListComponent implements OnInit {
     });
 
   }
+  deleteComment(id) {
+    this.commentsService.removeComment(this.post_id,id).subscribe(resp => {
+      this._snackBar.openSnackBar('Comment is Deleted', 'X');
+      this.show();
+    }, err => {
+      this._snackBar.openSnackBar(err.error.error, 'X')
+    });
+    
+   
+  }
+
 }
