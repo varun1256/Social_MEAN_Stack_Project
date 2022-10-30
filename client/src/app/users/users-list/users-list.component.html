@@ -3,7 +3,7 @@
 		<h2>Our Users</h2>
 	</div>
 	<div *ngIf="!isListEmpty" class="mat-elevation-z2">
-		 <input id="input-box" (keyup)="applyFilter($event)" matInput placeholder="Search" #input>
+	<input id="input-box" (keyup)="applyFilter($event)" matInput placeholder="Search" #input>
 		<table class="table-responsive-custom" mat-table [dataSource]="dataSource">
 			<ng-container matColumnDef="photo">
 				<th mat-header-cell *matHeaderCellDef> </th>

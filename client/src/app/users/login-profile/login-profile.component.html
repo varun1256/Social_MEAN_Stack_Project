@@ -16,7 +16,7 @@
 </div><br>
 <app-post-myposts *ngIf="showpost"></app-post-myposts>
 <div *ngIf="showsetting" class="edit-profile">
-  <button [routerLink]="['/users/edit/' + user._id]"  >Edit Profile</button>
+  <button mat-button [routerLink]="['/users/edit/' + user._id]"  >Edit Profile</button>
 </div>
 <br>
 

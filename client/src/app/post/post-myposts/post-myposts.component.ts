@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { ListDialogComponent } from 'src/app/like/list-dialog/list-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-post-myposts',
@@ -9,6 +11,7 @@ import { SnackBarService } from '../../utility/snack-bar.service';
   styleUrls: ['./post-myposts.component.scss']
 })
 export class PostMypostsComponent implements OnInit {
+  List_like=[]
   isListEmpty: Boolean = true;
   showdelete: Boolean = true;
   postList = []
@@ -16,7 +19,7 @@ export class PostMypostsComponent implements OnInit {
   likebody = {
     post_id: ''
   }
-  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private _snackBar: SnackBarService) {
+  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private _snackBar: SnackBarService, public dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.postService.mylist(this.limit, params['id']).subscribe(resp => {
         this.postList = JSON.parse(resp['postList']);
@@ -25,7 +28,7 @@ export class PostMypostsComponent implements OnInit {
         console.log(this.postList);
         if (this.postList.length != 0) {
           this.isListEmpty = false;
-          
+
         } else {
           this.isListEmpty = true;
           this._snackBar.openSnackBar('You have no post', 'X');
@@ -44,7 +47,7 @@ export class PostMypostsComponent implements OnInit {
     this.limit = this.limit + 2;
     this.route.params.subscribe(params => {
       this.postService.mylist(this.limit, params['id']).subscribe(resp => {
-      
+
         this.postList = JSON.parse(resp['postList']);
         this.showdelete = resp['showdelete'];
         console.log(this.postList);
@@ -65,32 +68,31 @@ export class PostMypostsComponent implements OnInit {
     console.log(post_id);
     this.likebody.post_id = post_id;
     this.postService.createlike(this.likebody).subscribe(resp => {
-     
+      this.LoadPostList();
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
 
     });
-    this.LoadPostList();
+   
   }
 
   unlike(post_id) {
     this.postService.destroyLike(post_id).subscribe(resp => {
-      
+      this.LoadPostList();
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
     });
-    this.LoadPostList();
+   
   }
 
   deletePost(id) {
     this.postService.removePost(id).subscribe(resp => {
       this._snackBar.openSnackBar('Post is Deleted', 'X');
+      this.LoadPostList();
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
     });
-    this.LoadPostList();
-    this.LoadPostList();
-  }
+    }
 
   addComment($event) {
     this.LoadPostList();
@@ -114,5 +116,22 @@ export class PostMypostsComponent implements OnInit {
 
       });
     })
+  }
+  openDialog(id): void {
+    let LikeList = [{}]
+    this.postService.likeList(id).subscribe(resp => {
+      this.List_like = JSON.parse(resp['Likes']);
+      let dialogRef = this.dialog.open(ListDialogComponent, {
+        width: '250px',
+        data:{
+          List:this.List_like
+        }
+      });
+     
+    }, err => {
+      this._snackBar.openSnackBar(err.error.error, 'X')
+    });
+    
+   
   }
 }

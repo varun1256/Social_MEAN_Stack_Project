@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="text-center">Likes</h1>
+<div *ngFor='let element of data.List' mat-dialog-content>
+  <div mat-dialog-content class="div-class">
+    <img class='img-box' src="http://localhost:3000/{{element.filePath}}" height="40" width="40">
+   {{ element.first_name}} {{element.last_name}}
+  </div>
+ </div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">close</button>
+</div>

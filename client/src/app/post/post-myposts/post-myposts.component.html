@@ -4,8 +4,11 @@
         <div *ngFor="let post of postList">
             <br>
             <div class="outer-box">
-                <h6 class="heading"> Name :{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
-                <button class="button-box" *ngIf="showdelete" mat-button (click)="deletePost(post._id)">Delete</button>
+                <img class="profile-box" src="http://localhost:3000/{{post.user.filePath}}" height="25" width="25">&nbsp;
+                <h6 class="heading">{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
+                
+                <button class="button-box" *ngIf="showdelete" mat-button (click)="deletePost(post._id)">Delete</button>&nbsp;
+                <button  mat-button *ngIf="showdelete" (click)="openDialog(post._id)">Show Likes</button>
                 <div class="inner-box">
                     <img class='img-box' src="http://localhost:3000/{{post.filePath}}" height="170" width="250">
                     {{post.content}}

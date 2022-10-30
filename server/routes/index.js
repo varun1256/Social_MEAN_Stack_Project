@@ -29,6 +29,7 @@ router.post('/uploadImage',imageUpload.single('image'),postController.fileupload
 
 router.post('/comment/create',auth.verifyToken,commentController.createComment);
 router.get('/comment/list',auth.verifyToken,commentController.List);
+router.delete('/comment/delete',auth.verifyToken,commentController.remove);
 
 router.post('/request/create',auth.verifyToken,requestController.createRequest);
 router.get('/request/list',auth.verifyToken,requestController.pendingRequest);
@@ -40,7 +41,7 @@ router.get('/friends/unfriend',auth.verifyToken,friendsController.Unfriend);
 
 router.post('/like/create',auth.verifyToken,likesController.createLike);
 router.get('/like/destroy',auth.verifyToken,likesController.unLike);
-router.get('/likes/list',auth.verifyToken,likesController.likeList);
+router.get('/like/list',auth.verifyToken,likesController.likeList);
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });

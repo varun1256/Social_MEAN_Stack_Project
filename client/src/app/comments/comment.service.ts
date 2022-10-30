@@ -42,4 +42,19 @@ export class CommentService {
     });
   }
 
+  removeComment(post_id,comment_id){
+    return new Observable((observer) => {
+      this.http.delete(environment.apiUrl + 'comment/delete?post_id='+post_id+'&comment_id='+comment_id, {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+
+
 }

@@ -64,6 +64,7 @@ const unLike = async (req, res) => {
 module.exports.unLike = unLike;
 
 const likeList = async (req, res) => {
+    console.log('2');
     if (!req.user.user_id) {
         logger.error("Likes-Controller :User is not authenticated");
         return ReE(res, "Likes-Controller:User is not authenticated");
@@ -84,8 +85,17 @@ const likeList = async (req, res) => {
         if (err) {
             return ReE(res, "Likes-Controller:User is not fetched");
         }
-        Likes.push(user);
+        let tempuser={
+            first_name:'',
+            last_name:'',
+            filePath:''
+            }
+            tempuser.first_name=user.first_name;
+            tempuser.last_name=user.last_name;
+            tempuser.filePath=user.filePath;
+        Likes.push(tempuser);
     }
-    return ReS(res, { message: "Successfully  fetch Likes", Likes: Likes }, 201);
+    console.log(Likes);
+    return ReS(res, { message: "Successfully  fetch Likes", Likes: JSON.stringify(Likes) }, 201);
 }
 module.exports.likeList = likeList;
