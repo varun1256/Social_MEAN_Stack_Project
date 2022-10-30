@@ -68,32 +68,31 @@ export class PostMypostsComponent implements OnInit {
     console.log(post_id);
     this.likebody.post_id = post_id;
     this.postService.createlike(this.likebody).subscribe(resp => {
-
+      this.LoadPostList();
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
 
     });
-    this.LoadPostList();
+   
   }
 
   unlike(post_id) {
     this.postService.destroyLike(post_id).subscribe(resp => {
-
+      this.LoadPostList();
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
     });
-    this.LoadPostList();
+   
   }
 
   deletePost(id) {
     this.postService.removePost(id).subscribe(resp => {
       this._snackBar.openSnackBar('Post is Deleted', 'X');
+      this.LoadPostList();
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
     });
-    this.LoadPostList();
-    this.LoadPostList();
-  }
+    }
 
   addComment($event) {
     this.LoadPostList();
