@@ -66,5 +66,15 @@ sendOTP(body){
     });
   });
 }
+resetPassword(body){
+  return new Observable((observer) => {
+    this.http.post(environment.apiUrl + 'user/resetPassword',body).subscribe(resp => {
+      this.router.navigate(['/user/login']);
+       observer.next(resp);
+    }, err => {
+      observer.error(err);
+    });
+  });
+}
 
 }

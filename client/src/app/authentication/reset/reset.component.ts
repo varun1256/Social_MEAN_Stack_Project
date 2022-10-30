@@ -9,10 +9,13 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class ResetComponent implements OnInit {
   user = {
-    email: ''
+    email: '',
+    password:''
   }
   otp
+  userOTP
   showotp = false;
+  resetpassword=false;
   constructor(private authService: AuthenticationService, private _snackBar: SnackBarService) { }
 
   ngOnInit(): void {
@@ -39,6 +42,24 @@ export class ResetComponent implements OnInit {
     });
 
   }
+ verifyotp(){
+  if(this.otp==this.userOTP){
+       this.resetpassword=true;
+  }
+  else{
+    this._snackBar.openSnackBar('Wrong OTP', 'X')
+  }
+ }
 
+ reset(){
+  this.authService.resetPassword(this.user).subscribe(resp => {
+    this._snackBar.openSnackBar('Password is reset ', 'X');
+
+  }, err => {
+    this._snackBar.openSnackBar(err.error.error, 'X')
+
+  });
+
+ }
 
 }

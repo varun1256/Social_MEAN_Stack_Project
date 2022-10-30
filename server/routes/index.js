@@ -23,6 +23,7 @@ router.delete('/removeProfile',auth.verifyToken,userController.removeFile);
 
 router.post('/user/checkemail',userController.checkEmail);
 router.post('/user/sendotp',userController.sendotp);
+router.post('/user/resetPassword',userController.resetPassword);
 
 router.post('/post/create',auth.verifyToken,postController.createPost);
 router.get('/post/list',auth.verifyToken,postController.List);

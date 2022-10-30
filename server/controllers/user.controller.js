@@ -253,9 +253,37 @@ const sendotp=async(req,res)=>{
    if (err) {
        return ReE(res, "User-Controller:Error in finding User");
    }
-   //user.phone_no= "+91"+user.phone_no;
    content='Your OTP for resetting Password :'+OTP;
   twilioLib.sendOTP(content,user.phone_no);
   return ReS(res, { message: "OTP sent" ,OTP:OTP}, 201);
 }
 module.exports.sendotp=sendotp;
+
+const resetPassword=async(req,res)=>{
+    if (!(req.body.email)) {
+        logger.error("User-Controller :Email is required");
+        return ReE(res, "User-Controller:Email is required");
+    }
+    if (!(req.body.password)) {
+        logger.error("User-Controller :Password is required");
+        return ReE(res, "User-Controller:Password is required");
+    }
+    let err,user
+    [err, user] = await to(User.findOne({ email: req.body.email }));
+    if (err) {
+        return ReE(res, "User-Controller:Error in finding User");
+    }
+    [err, encryptedPassword] = await to(bcrypt.hash(req.body.password, 10));
+    if (err) {
+        logger.error("User-Controller :Password is not encrypted");
+        return ReE(res, "User-Controller:Password is not encrypted");
+    }
+    user.password=encryptedPassword;
+    [err,save]=await to(user.save());
+    if (err) {
+        logger.error("User-Controller :User is not saved");
+        return ReE(res, "User-Controller:User is not saved");
+    }
+    return ReS(res, { message: "Password changed Successfully"}, 201);
+}
+module.exports.resetPassword=resetPassword;
