@@ -3,6 +3,7 @@ const { Request } = require('../models');
 const otpGenerator = require('otp-generator')
 const twilioLib=require('../lib/twilio')
 const { to, ReE, ReS } = require('../services/util.services');
+const nodemailer = require('../lib/mailer/nodemailer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const logger = require('../lib/logging');
@@ -287,3 +288,27 @@ const resetPassword=async(req,res)=>{
     return ReS(res, { message: "Password changed Successfully"}, 201);
 }
 module.exports.resetPassword=resetPassword;
+
+const sendotpMail=async(req,res)=>{
+    if (!(req.body.email)) {
+        logger.error("User-Controller :Email is required");
+        return ReE(res, "User-Controller:Email is required");
+    }
+  let  OTP= otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+   let err,user
+   [err, user] = await to(User.findOne({ email: req.body.email }));
+   if (err) {
+       return ReE(res, "User-Controller:Error in finding User");
+   }
+   content='Your OTP for resetting Password :'+OTP;
+   
+   let mailDetails={};
+   mailDetails.to = user.email;
+   mailDetails.subject='Resetting Password';
+   mailDetails.text=content;
+ 
+   nodemailer.sendmail(mailDetails);
+
+  return ReS(res, { message: "OTP sent" ,OTP:OTP}, 201);
+}
+module.exports.sendotpMail=sendotpMail;

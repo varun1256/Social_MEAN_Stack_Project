@@ -24,7 +24,6 @@ export class ResetComponent implements OnInit {
     this.authService.checkEmail(this.user).subscribe(resp => {
       this._snackBar.openSnackBar('Email Verified', 'X');
       this.showotp = resp['displayotp'];
-      console.log(this.showotp);
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
 
@@ -35,7 +34,6 @@ export class ResetComponent implements OnInit {
     this.authService.sendOTP(this.user).subscribe(resp => {
       this._snackBar.openSnackBar('OTP send ', 'X')
       this.otp = resp['OTP'];
-      console.log(this.otp);
     }, err => {
       this._snackBar.openSnackBar(err.error.error, 'X')
 
@@ -61,5 +59,15 @@ export class ResetComponent implements OnInit {
   });
 
  }
+ sendotpMail() {
+  this.authService.sendOTPMail(this.user).subscribe(resp => {
+    this._snackBar.openSnackBar('OTP send ', 'X')
+    this.otp = resp['OTP'];
+  }, err => {
+    this._snackBar.openSnackBar(err.error.error, 'X')
+
+  });
+
+}
 
 }

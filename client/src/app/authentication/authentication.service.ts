@@ -77,4 +77,14 @@ resetPassword(body){
   });
 }
 
+sendOTPMail(body){
+  return new Observable((observer) => {
+    this.http.post(environment.apiUrl + 'user/sendotpMail',body).subscribe(resp => {
+       observer.next(resp);
+    }, err => {
+      observer.error(err);
+    });
+  });
+}
+
 }
