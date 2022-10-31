@@ -1,15 +1,19 @@
 {
-    "dbconfig":{
-        "url":"mongodb://127.0.0.1:27017/PostComment"
+    "dbconfig": {
+        "url": "mongodb://127.0.0.1:27017/PostComment"
     },
     "logging": {
-		"level": "error",
-		"fileLocation": "./logs/"
-	},
-    "twilio":{
-         "accountSid":"ACa861604e7a2834eb96fa16adbc699b48",
-         "authToken":"a97b8f0b4fb1d3b458ce401c8ed88c77",
-         "phoneNo":"+19842178950"
+        "level": "error",
+        "fileLocation": "./logs/"
+    },
+    "twilio": {
+        "accountSid": "ACa861604e7a2834eb96fa16adbc699b48",
+        "authToken": "a97b8f0b4fb1d3b458ce401c8ed88c77",
+        "phoneNo": "+19842178950"
+    },
+    "nodemailer": {
+        "user": "sourav.developer.testing@gmail.com",
+        "pass": "tabhshmjqykqdzld"
     },
     "environment": "dev"
 }
