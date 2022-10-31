@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommentService } from '../comment.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-comments-list',
@@ -13,6 +14,7 @@ export class CommentsListComponent implements OnInit {
   commentList = []
   limit = 2;
   showComments: Boolean = false;
+  url=environment.apiUrl;
   constructor(private commentsService: CommentService, private _snackBar: SnackBarService) { }
 
   ngOnInit(): void {

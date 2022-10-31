@@ -1,5 +1,5 @@
 <div><br>
-    <img class='img-box' src="http://localhost:3000/{{user.filePath}}" height="195" width="250">&nbsp;
+    <img class='img-box' src="{{url}}{{user.filePath}}" height="195" width="250">&nbsp;
     <input  type="file" name="image" (change)="onChange($event)">
     <button mat-raised-button color="primary" (click)="uploadImage()">Save Image</button><br><br>
     <button mat-raised-button  color="primary" (click)="removePhoto()">Remove Photo</button>

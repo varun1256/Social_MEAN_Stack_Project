@@ -2,7 +2,7 @@
 <div class="outer-box">
    
     <div class="inner-box">
-        <img class='img-box' src="http://localhost:3000/{{post.filePath}}" height="195" width="250">
+        <img class='img-box' src="{{url}}{{post.filePath}}" height="195" width="250">
         <textarea matInput class="textarea" rows="7" cols="35" name="content" [(ngModel)]="post.content" placeholder="Write Text"></textarea>
      </div>
      <input type="file" name="image" (change)="onChange($event)">

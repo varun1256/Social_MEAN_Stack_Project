@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FriendsService } from '../friends.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-friends-list',
@@ -13,6 +14,7 @@ export class FriendsListComponent implements OnInit {
   isListEmpty: Boolean = true;
   displayedCols = ['photo','fname', 'email', 'view', 'unfriend'];
   dataSource!:MatTableDataSource<any>
+  url=environment.apiUrl;
 
   constructor(private friendsService: FriendsService, private _snackBar: SnackBarService) {
     this.friendsService.List().subscribe(resp => {

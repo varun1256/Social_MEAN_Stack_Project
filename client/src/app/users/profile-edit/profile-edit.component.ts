@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../users.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-edit',
@@ -19,6 +20,7 @@ export class ProfileEditComponent implements OnInit {
     path: ""
   }
   uploadedImage
+  url=environment.apiUrl
   formData = new FormData();
   constructor(private usersService: UsersService, private router: Router, private route: ActivatedRoute, private _snackBar: SnackBarService) {
     this.route.params.subscribe(params => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../request.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-request-list',
@@ -10,6 +11,7 @@ import { SnackBarService } from '../../utility/snack-bar.service';
 export class RequestListComponent implements OnInit {
   requestList=[]
    isListEmpty:Boolean=true;
+   url=environment.apiUrl
    displayedCols = ['photo','fname','email','view','accept','reject'];
   constructor(private requestService:RequestService,private _snackBar:SnackBarService) {
     this.requestService.List().subscribe(resp => {

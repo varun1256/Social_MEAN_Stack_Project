@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../users.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class UsersProfileComponent implements OnInit {
     filePath:'',
     friends: []
   }
+  url=environment.apiUrl
   showpost = false;
   relation: boolean
   self: boolean
