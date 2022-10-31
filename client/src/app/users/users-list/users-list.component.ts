@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class UsersListComponent implements OnInit {
   isListEmpty: Boolean = true;
-  displayedCols = ['photo','fname', 'Lname', 'email', 'view'];
+  displayedCols = ['photo','fname', 'email', 'view'];
   dataSource!:MatTableDataSource<any>
   constructor(private userService: UsersService, private _snackBar: SnackBarService) {
     this.userService.List().subscribe(resp => {

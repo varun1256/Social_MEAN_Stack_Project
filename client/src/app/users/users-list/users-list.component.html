@@ -3,7 +3,7 @@
 		<h2>Our Users</h2>
 	</div>
 	<div *ngIf="!isListEmpty" class="mat-elevation-z2">
-	<input id="input-box" (keyup)="applyFilter($event)" matInput placeholder="Search" #input>
+		<input id="input-box" (keyup)="applyFilter($event)" matInput placeholder="Search" #input>
 		<table class="table-responsive-custom" mat-table [dataSource]="dataSource">
 			<ng-container matColumnDef="photo">
 				<th mat-header-cell *matHeaderCellDef> </th>
@@ -11,14 +11,9 @@
 						src="http://localhost:3000/{{element.filePath}}" height="40" width="40"></td>
 			</ng-container>
 			<ng-container matColumnDef="fname">
-				<th mat-header-cell *matHeaderCellDef>First Name </th>
+				<th mat-header-cell *matHeaderCellDef> Name </th>
 				<td mat-cell *matCellDef="let element"> {{element.first_name}}</td>
 			</ng-container>
-			<ng-container matColumnDef="Lname">
-				<th mat-header-cell *matHeaderCellDef> Last Name </th>
-				<td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
-			</ng-container>
-
 			<ng-container matColumnDef="email">
 				<th mat-header-cell *matHeaderCellDef> Email </th>
 				<td mat-cell *matCellDef="let element"> {{element.email}} </td>

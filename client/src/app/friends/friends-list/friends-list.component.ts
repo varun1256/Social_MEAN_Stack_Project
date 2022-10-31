@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class FriendsListComponent implements OnInit {
    FriendsList=[]
   isListEmpty: Boolean = true;
-  displayedCols = ['photo','fname', 'Lname', 'email', 'view', 'unfriend'];
+  displayedCols = ['photo','fname', 'email', 'view', 'unfriend'];
   dataSource!:MatTableDataSource<any>
 
   constructor(private friendsService: FriendsService, private _snackBar: SnackBarService) {

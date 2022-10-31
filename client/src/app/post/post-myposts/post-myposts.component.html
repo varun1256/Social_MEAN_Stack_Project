@@ -5,7 +5,7 @@
             <br>
             <div class="outer-box">
                 <img class="profile-box" src="http://localhost:3000/{{post.user.filePath}}" height="25" width="25">&nbsp;
-                <h6 class="heading">{{post.user.name}}&nbsp;{{post.user.lname}}</h6>
+                <h6 class="heading">{{post.user.name}}&nbsp;</h6>
                 
                 <button class="button-box" *ngIf="showdelete" mat-button (click)="deletePost(post._id)">Delete</button>&nbsp;
                 <button  mat-button *ngIf="showdelete" (click)="openDialog(post._id)">Show Likes</button>
