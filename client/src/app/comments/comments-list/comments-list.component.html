@@ -4,7 +4,7 @@
 <div *ngIf="showComments">
     <div  *ngFor="let comment of commentList">
         <div class="button-box">
-         {{comment.user.name}} {{comment.user.lname}}  : {{comment.content}}
+         {{comment.user.name}} : {{comment.content}}
          <button mat-button *ngIf="comment.self" color='primary' (click)="deleteComment(comment._id)">Dlt</button>
          </div>
     </div>

@@ -10,7 +10,7 @@ import { SnackBarService } from '../../utility/snack-bar.service';
 export class RequestListComponent implements OnInit {
   requestList=[]
    isListEmpty:Boolean=true;
-   displayedCols = ['photo','fname', 'Lname', 'email','view','accept','reject'];
+   displayedCols = ['photo','fname','email','view','accept','reject'];
   constructor(private requestService:RequestService,private _snackBar:SnackBarService) {
     this.requestService.List().subscribe(resp => {
        

@@ -9,11 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
+import { ResetComponent } from './reset/reset.component';
 
 @NgModule({
   declarations: [
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    ResetComponent
   ],
   imports: [
     CommonModule,

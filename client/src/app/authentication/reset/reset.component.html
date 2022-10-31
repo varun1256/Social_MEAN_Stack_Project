@@ -1,0 +1,17 @@
+<div *ngIf="!showotp && !resetpassword"><br>
+Email : <input mat-input apperance="full" [(ngModel)]="user.email"><br><br>
+<button mat-raised-button color="primary" (click)="verifyEmail()">Verify Email</button>
+</div>
+<br>
+<div *ngIf="showotp && !resetpassword"><br>
+OTP : <input mat-input apperance="full" [(ngModel)]="userOTP"><br><br>
+<button mat-raised-button color="primary" (click)="sendotp()">Send OTP via SMS</button><br><br>--OR--<br><br>
+<button mat-raised-button color="primary" (click)="sendotpMail()">Send OTP via Mail</button><br><br>
+<button mat-raised-button color="primary" (click)="verifyotp()">Verify OTP</button><br>
+</div>
+<br>
+<div *ngIf="resetpassword">
+   Reset Password : <input mat-input apperance="full" [(ngModel)]="user.password" ><br><br>
+   <button mat-raised-button color="primary" (click)="reset()">Reset Password</button>
+</div>
+
