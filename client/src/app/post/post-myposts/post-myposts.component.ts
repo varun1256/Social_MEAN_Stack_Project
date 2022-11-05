@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SnackBarService } from '../../utility/snack-bar.service';
 import { ListDialogComponent } from 'src/app/like/list-dialog/list-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-post-myposts',
@@ -19,6 +20,7 @@ export class PostMypostsComponent implements OnInit {
   likebody = {
     post_id: ''
   }
+  url=environment.apiUrl
   constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private _snackBar: SnackBarService, public dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.postService.mylist(this.limit, params['id']).subscribe(resp => {

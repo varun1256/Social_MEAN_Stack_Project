@@ -4,7 +4,8 @@
 <div *ngIf="showComments">
     <div  *ngFor="let comment of commentList">
         <div class="button-box">
-         {{comment.user.name}} : {{comment.content}}
+            <img class='img-box' src="{{url}}{{comment.user.filePath}}" height="25" width="25">
+        <b> {{comment.user.name}} </b>: {{comment.content}}
          <button mat-button *ngIf="comment.self" color='primary' (click)="deleteComment(comment._id)">Dlt</button>
          </div>
     </div>

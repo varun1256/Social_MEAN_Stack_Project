@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-post-list',
@@ -14,6 +15,7 @@ export class PostListComponent implements OnInit {
   likebody = {
     post_id: ''
   }
+  url=environment.apiUrl
   constructor(private postService: PostService, private _snackBar: SnackBarService) {
     this.postService.list(this.limit).subscribe(resp => {
       this.postList = JSON.parse(resp['postList']);

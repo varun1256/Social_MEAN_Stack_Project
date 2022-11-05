@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-post-create',
@@ -15,6 +16,7 @@ export class PostCreateComponent implements OnInit {
   file = {
     path: ""
   }
+  url=environment.apiUrl
   uploadedImage
   formData = new FormData();
   constructor(private postService: PostService,private _snackBar:SnackBarService) { }

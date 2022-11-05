@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
 import { SnackBarService } from '../../utility/snack-bar.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-users-list',
@@ -11,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class UsersListComponent implements OnInit {
   isListEmpty: Boolean = true;
   displayedCols = ['photo','fname', 'email', 'view'];
+  url=environment.apiUrl
   dataSource!:MatTableDataSource<any>
   constructor(private userService: UsersService, private _snackBar: SnackBarService) {
     this.userService.List().subscribe(resp => {
