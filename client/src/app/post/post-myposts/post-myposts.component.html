@@ -1,4 +1,4 @@
-<section class="container-fluid py-5">
+<!-- <section class="container-fluid py-5">
    
     <div *ngIf="!isListEmpty">
         <div *ngFor="let post of postList">
@@ -28,4 +28,46 @@
     <div *ngIf="isListEmpty" class="text-center pt-3">
         <h5 class="text-danger m-0">No Post found</h5>
     </div>
-</section>
+</section> -->
+
+
+<div class="news-card" *ngIf="!isListEmpty">>
+    <div class="row">
+        <div class="col-md-8 positioning">
+            <div class="blog-left">
+                <div class="col-sm-12" *ngFor="let post of postList">
+                    <div class="single-news-box news-mb-30 design">
+                        <div class="news-box-bg">
+                            <p class="news-meta">
+                                <br>
+                                <img  class="profile-box" src="{{url}}{{post.user.filePath}}" height="25"
+                                    width="25">&nbsp;
+                                <span>{{post.user.name}}</span>
+                                <button class="button-box" *ngIf="showdelete" mat-raised-button color="primary" (click)="deletePost(post._id)">Delete</button>&nbsp;
+                                <button  mat-raised-button color="primary" *ngIf="showdelete" (click)="openDialog(post._id)">Show Likes</button>
+                            </p><br>
+                            <img *ngIf="post.filePath" src="{{url}}{{post.filePath}}" alt="blog image">
+                        </div>
+                        <div class="news-box-inner">
+                            <br>
+                            <h5><b>Description:</b> {{post.content}} </h5><br>
+                        </div>
+                        &nbsp;<button mat-raised-button color="primary" *ngIf="!post.liked"
+                            (click)="createLike(post._id)">Like</button>
+                        <button mat-raised-button color="primary" *ngIf="post.liked"
+                            (click)="unlike(post._id)">Unlike</button>
+                        &nbsp;&nbsp;Likes : {{post.likes.length}}
+                        Comments : {{post.comments.length}}&nbsp;&nbsp;
+                        <app-comments-create [post_id]="post._id" (newItemEvent)="addComment($event)">
+                        </app-comments-create>
+                        <app-comments-list [post_id]="post._id"></app-comments-list><br><br>
+                    </div><br>
+                </div>
+                <button mat-raised-button class="button1" color="primary" (click)="fetch()">Show More</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="isListEmpty" class="text-center pt-3">
+    <h5 class="text-danger m-0">No Post found</h5>
+</div>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RequestRoutingModule } from './request-routing.module';
 import { RequestListComponent } from './request-list/request-list.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
   imports: [
     CommonModule,
     MatTableModule,
+    MatButtonModule,
     RequestRoutingModule
   ]
 })

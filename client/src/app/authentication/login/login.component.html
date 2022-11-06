@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <form (ngSubmit)="SignIn()">
       <div>
             Email:
@@ -15,4 +15,43 @@
         <button mat-button color="primary">Log In</button>
         <button mat-button color="primary" [routerLink]="['/user/forgotpassword']">Forgot Password</button>
     </form>
+</div> -->
+
+<div class="news-card">>
+    <div class="row">
+        <div class="col-md-8 positioning">
+            <div class="blog-left">
+                
+                <div class="col-sm-10">
+                    <div class="single-news-box news-mb-15 design">
+                        <br>
+                        <div class="text-center tcolor">
+                            <h2>Login</h2>
+                        </div><br>
+                        <div class="news-box-inner">
+
+                            <form (ngSubmit)="SignIn()">
+                                <div>
+                                    Email:
+                                    <mat-form-field appearance="fill">
+                                        <input matInput name="email" [(ngModel)]="user.email" placeholder="Email">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    Password:
+                                    <mat-form-field appearance="fill">
+                                        <input matInput name="Password" [(ngModel)]="user.password"
+                                            placeholder="Password">
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="primary">Log In</button>&nbsp;
+                                <button mat-raised-button color="primary" [routerLink]="['/user/forgotpassword']">Forgot
+                                    Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,7 +1,7 @@
-<div>
+<!-- <div>
     <form (ngSubmit)="SignUp()">
         <div>
-         Name:
+            Name:
             <mat-form-field appearance="fill">
                 <input matInput name="firstname" [(ngModel)]="user.first_name" placeholder="First Name">
             </mat-form-field>
@@ -9,27 +9,83 @@
         <div>
             Status:
             <mat-form-field appearance="fill">
-                <input matInput name="lastname"  [(ngModel)]="user.last_name" placeholder="Last Name">
+                <input matInput name="lastname" [(ngModel)]="user.last_name" placeholder="Last Name">
             </mat-form-field>
         </div>
         <div>
             Email:
             <mat-form-field appearance="fill">
-                <input matInput name="email"  [(ngModel)]="user.email" placeholder="Email">
+                <input matInput name="email" [(ngModel)]="user.email" placeholder="Email">
             </mat-form-field>
         </div>
         <div>
             Password:
             <mat-form-field appearance="fill">
-                <input matInput name="Password"  [(ngModel)]="user.password" placeholder="Password">
+                <input matInput name="Password" [(ngModel)]="user.password" placeholder="Password">
             </mat-form-field>
         </div>
         <div>
             Phone Number:
             <mat-form-field appearance="fill">
-                <input matInput name="Phonenumber"  [(ngModel)]="user.phone_no" placeholder="Phone No">
+                <input matInput name="Phonenumber" [(ngModel)]="user.phone_no" placeholder="Phone No">
             </mat-form-field>
         </div>
         <button mat-button color="primary">Sign Up</button>
     </form>
+</div> -->
+
+<div class="news-card">>
+    <div class="row">
+        <div class="col-md-8 positioning">
+            <div class="blog-left">
+
+                <div class="col-sm-10">
+                    <div class="single-news-box news-mb-15 design">
+                        <br>
+                        <div class="text-center tcolor">
+                            <h2>Sign Up</h2>
+                        </div><br>
+                        <div class="news-box-inner">
+                            <div>
+                                <form (ngSubmit)="SignUp()">
+                                    <div>
+                                        Name:
+                                        <mat-form-field appearance="fill">
+                                            <input matInput name="firstname" [(ngModel)]="user.first_name" placeholder="First Name">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        Status:
+                                        <mat-form-field appearance="fill">
+                                            <input matInput name="lastname" [(ngModel)]="user.last_name" placeholder="Last Name">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        Email:
+                                        <mat-form-field appearance="fill">
+                                            <input matInput name="email" [(ngModel)]="user.email" placeholder="Email">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        Password:
+                                        <mat-form-field appearance="fill">
+                                            <input matInput name="Password" [(ngModel)]="user.password" placeholder="Password">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        Phone Number:
+                                        <mat-form-field appearance="fill">
+                                            <input matInput name="Phonenumber" [(ngModel)]="user.phone_no" placeholder="Phone No">
+                                        </mat-form-field>
+                                    </div>
+                                    <button mat-raised-button color="primary">Sign Up</button>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

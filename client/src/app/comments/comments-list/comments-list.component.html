@@ -1,5 +1,5 @@
 <div class="button-box">
-<button mat-button (click)="show()" class="positioning">Show Comments</button>
+<button mat-raised-button color="primary" (click)="show()" class="positioning">Show Comments</button>
 </div>
 <div *ngIf="showComments">
     <div  *ngFor="let comment of commentList">
@@ -10,7 +10,7 @@
          </div>
     </div>
     <div *ngIf='!isListEmpty' class="button-box">
-        <button mat-button (click)="showMore()" class="positioning">Show More</button>
+        <button mat-raised-button color="primary" (click)="showMore()" class="positioning">Show More</button>
     </div>
    
 </div>

@@ -1,13 +1,42 @@
-<br>
+<!-- <br>
 <div class="outer-box">
-   
+
     <div class="inner-box">
         <img class='img-box' src="{{url}}{{post.filePath}}" height="195" width="250">
-        <textarea matInput class="textarea" rows="7" cols="35" name="content" [(ngModel)]="post.content" placeholder="Write Text"></textarea>
-     </div>
-     <input type="file" name="image" (change)="onChange($event)">
-     <button (click)="uploadImage()">Save Image</button><br><br>
-     <button mat-raised-button (click)="postForm()" color="primary">Post</button> 
-  
+        <textarea matInput class="textarea" rows="7" cols="35" name="content" [(ngModel)]="post.content"
+            placeholder="Write Text"></textarea>
+    </div>
+    <input type="file" name="image" (change)="onChange($event)">
+    <button (click)="uploadImage()">Save Image</button><br><br>
+    <button mat-raised-button (click)="postForm()" color="primary">Post</button>
+
 </div>
-<br>
+<br> -->
+
+
+<div class="news-card">>
+    <div class="row">
+        <div class="col-md-8 positioning">
+            <div class="blog-left">
+                <div class="col-sm-10">
+                    <div class="single-news-box news-mb-15 design">
+                        <div class="news-box-bg">
+                            <img src="{{url}}{{post.filePath}}" alt="blog image">
+                        </div>
+                        <div class="news-box-inner">
+                            <p class="news-meta">
+                            </p>
+                            <br>
+                            <h5><b>Description:</b></h5><br>
+                            <textarea matInput class="textarea" rows="7" cols="80" name="content"
+                                [(ngModel)]="post.content" placeholder="Write Text"></textarea>
+                        </div>
+                        <input type="file" name="image" (change)="onChange($event)"><br>
+                        &nbsp;<button mat-raised-button color="warn" (click)="uploadImage()">Save Image</button><br><br>
+                        &nbsp;<button mat-raised-button (click)="postForm()" color="primary">Post</button>
+                    </div><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

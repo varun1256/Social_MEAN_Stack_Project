@@ -1,9 +1,16 @@
 <section class="container-fluid py-5">
 	<div class="text-center">
 		<h2>Our Users</h2>
-	</div>
+	</div><br>
+	<div class="input-group">
+		<div class="form-outline">
+		  <input type="search" id="form1" class="form-control"  id="input-box" (keyup)="applyFilter($event)" matInput placeholder="Search" />
+		 
+		</div>
+		
+	  </div>
+	  <br>
 	<div *ngIf="!isListEmpty" class="mat-elevation-z2">
-		<input id="input-box" (keyup)="applyFilter($event)" matInput placeholder="Search" #input>
 		<table class="table-responsive-custom" mat-table [dataSource]="dataSource">
 			<ng-container matColumnDef="photo">
 				<th mat-header-cell *matHeaderCellDef> </th>
