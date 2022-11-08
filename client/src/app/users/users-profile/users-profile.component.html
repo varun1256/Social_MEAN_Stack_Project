@@ -1,20 +1,143 @@
-<br>
-<div class="outer-box">
+<div class="about-history">
+  <div class="container">
+    <div class="about-history-content">
 
-  <div class="inner-box">
-    <img class='img-box' src="{{url}}{{user.filePath}}" height="150" width="150">&nbsp;
-    <div class='detail-box'>
-      <h6> Name : {{user.first_name}}&nbsp;</h6>
-      <h6>Email: {{user.email}}</h6>
-      <h6>Phone no: {{user.phone_no}}</h6>
-      <h6>Friends: {{user.friends.length}}</h6>
-    </div>
-  </div>
-  <button *ngIf="(!relation) && (!self) && (!sent) && (!requested)" mat-button (click)="sendRequest()">Send
-    Request</button>
-  <p *ngIf="relation">You Both are friends</p>
-  <button mat-button *ngIf="relation" (click)="showPost()">Posts</button>
-  <p *ngIf="(!relation) && (!self) && (sent)">Request Sent</p>
-  <p *ngIf="(!relation) && (!self) && (!sent) && (requested)">Requested</p>
-</div><br>
-<app-post-myposts *ngIf="showpost"></app-post-myposts>
+      <div class="row">
+
+        <div class="col-md-5 col-sm-12">
+          <div class="single-about-history">
+            <div class="about-history-img">
+              <img class='image-box' src="{{url}}{{user.filePath}}" alt="about">
+            </div><!--/.about-history-img-->
+          </div><!--/.single-about-history-->
+        </div><!--/.col-->
+
+        <div class="col-md-offset-1 col-md-6 col-sm-12">
+          <div class="single-about-history">
+            <div class="about-history-txt">
+              <h2>PROFILE</h2><br>
+              <h3>
+              <b class="tcolor">{{user.first_name}}</b>
+              </h3>
+
+              <div class="main-timeline">
+
+                <div class="row">
+                  <div class="col-md-2 col-sm-2">
+                    <div class="experience-time">
+                      <h3>Status</h3>
+                    </div><!--/.experience-time-->
+                  </div><!--/.col-->
+                  <div class="col-md-10 col-sm-10">
+                    <div class="timeline">
+                      
+                      <div class="timeline-content">
+                        <h4 class="title"> <span><i class="fa fa-circle-o" aria-hidden="true"></i></span></h4>
+                        
+                        <ul class="description">
+                          <li>{{user.last_name}}</li>
+
+                        </ul>
+                      </div><!--/.timeline-content-->
+                    </div><!--/.timeline-->
+                  </div><!--/.col-->
+                </div><!--/.row-->
+
+                <div class="row">
+                  <div class="col-md-2 col-sm-2">
+                    <div class="experience-time">
+                      <h3>Email</h3>
+                    </div><!--/.experience-time-->
+                  </div><!--/.col-->
+                  <div class="col-md-10 col-sm-10">
+                    <div class="timeline">
+                      
+                      <div class="timeline-content">
+                        <h4 class="title"> <span><i class="fa fa-circle-o" aria-hidden="true"></i></span></h4>
+                        
+                        <ul class="description">
+                          <li>{{user.email}}</li>
+                        </ul>
+                      </div><!--/.timeline-content-->
+                    </div><!--/.timeline-->
+                  </div><!--/.col-->
+                </div><!--/.row-->
+
+                <div class="row">
+                  <div class="col-md-2 col-sm-2">
+                    <div class="experience-time">
+                      <h3>Friends</h3>
+                    </div><!--/.experience-time-->
+                  </div><!--/.col-->
+                  <div class="col-md-10 col-sm-10">
+                    <div class="timeline">
+                      
+                      <div class="timeline-content">
+                        <h4 class="title"> <span><i class="fa fa-circle-o" aria-hidden="true"></i></span></h4>
+                        
+                        <ul class="description">
+                          <li>{{user.friends.length}}</li>
+
+                        </ul>
+                      </div><!--/.timeline-content-->
+                    </div><!--/.timeline-->
+                  </div><!--/.col-->
+                </div><!--/.row-->
+
+                <div class="row">
+                  <div class="col-md-2 col-sm-2">
+                    <div class="experience-time">
+                      <h3>Relation</h3>
+                    </div><!--/.experience-time-->
+                  </div><!--/.col-->
+                  <div class="col-md-10 col-sm-10">
+                    <div class="timeline">
+                      
+                      <div class="timeline-content">
+                        <h4 class="title"> <span><i class="fa fa-circle-o" aria-hidden="true"></i></span></h4>
+                        
+                        <ul class="description">
+                          <li>  <button *ngIf="(!relation) && (!self) && (!sent) && (!requested)" mat-raised-button color="primary" (click)="sendRequest()">Send
+                            Request</button>
+                          <p *ngIf="relation">You Both are friends</p>
+                          <p *ngIf="(!relation) && (!self) && (sent)">Request Sent</p>
+                          <p *ngIf="(!relation) && (!self) && (!sent) && (requested)">Requested</p></li>
+                        </ul>
+                      </div><!--/.timeline-content-->
+                    </div><!--/.timeline-->
+                  </div><!--/.col-->
+                </div><!--/.row-->
+
+                <div class="row"  *ngIf="relation">
+                  <div class="col-md-2 col-sm-2">
+                    <div class="experience-time">
+                      <h3>Posts</h3>
+                    </div><!--/.experience-time-->
+                  </div><!--/.col-->
+                  <div class="col-md-10 col-sm-10">
+                    <div class="timeline">
+                      
+                      <div class="timeline-content">
+                        <h4 class="title"> <span><i class="fa fa-circle-o" aria-hidden="true"></i></span></h4>
+                        
+                        <ul class="description">
+                          <li> <button mat-raised-button color="primary" *ngIf="relation" (click)="showPost()">Posts</button></li>
+                        </ul>
+                      </div><!--/.timeline-content-->
+                    </div><!--/.timeline-->
+                  </div><!--/.col-->
+                </div><!--/.row-->
+
+              </div><!--.main-timeline-->
+            </div><!--/.about-history-txt-->
+          </div><!--/.single-about-history-->
+        </div><!--/.col-->
+
+      </div><!--/.row-->
+      
+      <app-post-myposts *ngIf="showpost"></app-post-myposts> 
+    </div><!--/.about-history-content-->
+  </div><!--/.container-->
+
+</div><!--/.about-history-->
+<!--about-history end-->

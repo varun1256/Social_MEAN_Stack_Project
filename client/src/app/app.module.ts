@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { FriendsModule } from './friends/friends.module';
 import { LikeModule } from './like/like.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeModule } from './home/home.module';
 import { CommentsModule } from './comments/comments.module';
 
 
@@ -28,6 +29,7 @@ import { CommentsModule } from './comments/comments.module';
     CommentsModule,
     UsersModule,
     RequestModule,
+    HomeModule,
     LikeModule,
     LayoutModule,
     FormsModule,

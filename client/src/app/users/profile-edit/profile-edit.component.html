@@ -1,27 +1,46 @@
-<div><br>
-    <img class='img-box' src="{{url}}{{user.filePath}}" height="195" width="250">&nbsp;
-    <input  type="file" name="image" (change)="onChange($event)">
-    <button mat-raised-button color="primary" (click)="uploadImage()">Save Image</button><br><br>
-    <button mat-raised-button  color="primary" (click)="removePhoto()">Remove Photo</button>
-    <form (ngSubmit)="edit()">
-        <div>
-             Name:
-            <mat-form-field appearance="fill">
-                <input matInput name="firstname" [(ngModel)]="user.first_name" placeholder="First Name">
-            </mat-form-field>
+<div class="news-card">>
+    <div class="row">
+        <div class="col-md-8 positioning">
+            <div class="blog-left">
+                <div class="col-sm-8">
+                    <div class="single-news-box news-mb-30 design">
+                        <div class="news-box-bg"><br>
+                            <img class='image-box' src="{{url}}{{user.filePath}}" alt="blog image">
+                        </div>
+                        <div class="news-box-inner">
+                            <p class="news-meta">
+                            </p>
+                            <br>
+                            <input  type="file" name="image" (change)="onChange($event)"><br>
+                            <button mat-raised-button color="primary" (click)="uploadImage()">Save Image</button><br><br>
+                            <button mat-raised-button  color="primary" (click)="removePhoto()">Remove Photo</button><br>
+                            <form (ngSubmit)="edit()">
+                                <div>
+                                     Name:
+                                    <mat-form-field appearance="fill">
+                                        <input matInput name="firstname" [(ngModel)]="user.first_name" placeholder="First Name">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    Status:
+                                    <mat-form-field appearance="fill">
+                                        <input matInput name="lastname" [(ngModel)]="user.last_name" placeholder="Last Name">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    Phone Number:
+                                    <mat-form-field appearance="fill">
+                                        <input matInput name="Phonenumber" [(ngModel)]="user.phone_no" placeholder="Phone No">
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="primary" (click)="edit()">Edit</button><br>
+                            </form>
+                          
+                        </div>
+                       
+                    </div><br>
+                </div>
+            </div>
         </div>
-        <div>
-            Status:
-            <mat-form-field appearance="fill">
-                <input matInput name="lastname" [(ngModel)]="user.last_name" placeholder="Last Name">
-            </mat-form-field>
-        </div>
-        <div>
-            Phone Number:
-            <mat-form-field appearance="fill">
-                <input matInput name="Phonenumber" [(ngModel)]="user.phone_no" placeholder="Phone No">
-            </mat-form-field>
-        </div>
-        <button mat-raised-button color="primary" (click)="edit()">Edit</button><br>
-    </form>
+    </div>
 </div>
