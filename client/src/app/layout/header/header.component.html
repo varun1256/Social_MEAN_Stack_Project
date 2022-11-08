@@ -1,47 +1,51 @@
-  <!--header start-->
-  <section class="header">
-   <div class="container">	
+<!--header start-->
+<section class="header">
+   <div class="container">
       <div class="header-left">
          <ul class="pull-left">
             <li>
 
-                  <i class="fa fa-phone" aria-hidden="true"></i> +91 9667068510
-            
-            </li><!--/li-->
-            <button mat-button color="primary" [routerLink]="['/']">Home</button>
-            <button *ngIf="loggedIn()" mat-button color="primary" [routerLink]="['/post/create']">Post</button>
-            <button *ngIf="loggedIn()" mat-button color="primary" [routerLink]="['/post/list']">Feed</button>
-            <button *ngIf="loggedIn()" mat-button color="primary" [routerLink]="['/users/list']">Users</button>
-            <button *ngIf="loggedIn()" mat-button color="primary" [routerLink]="['/friends/list']">Friends</button>
-            <button *ngIf="loggedIn()" mat-button color="primary" [routerLink]="['/request/list']">Requests</button>
-            <button *ngIf="loggedIn()" mat-button color="primary" [routerLink]="['/users/profile']">Profile</button>
-            <button *ngIf="!loggedIn()" mat-button color="primary" [routerLink]="['/user/login']">LogIn</button>
-            <button *ngIf="!loggedIn()" mat-button color="primary" [routerLink]="['/user/signup']">SignUp</button>
-            <button *ngIf="loggedIn()" mat-button color="primary" (click)="Logout()">Logout</button>&nbsp;
+               <i class="fa fa-phone" aria-hidden="true"></i> +91 9667068510
+
+            </li>
+            <!--/li-->
+
             <li>
-                  <i class="fa fa-envelope" aria-hidden="true"></i>varunnarang01@gmail.com
-            </li><!--/li-->
-         </ul><!--/ul-->
-      </div><!--/.header-left -->
+               <i class="fa fa-envelope" aria-hidden="true"></i>varunnarang01@gmail.com
+            </li>
+            <!--/li-->
+         </ul>
+         <!--/ul-->
+      </div>
+      <!--/.header-left -->
       <div class="header-right pull-right">
          <ul>
-           
+
             <li>
                <div class="social-icon">
                   <ul>
-                     <li><a href="https://www.facebook.com/profile.php?id=100016438819431"><i class="fa fa-facebook"></i></a></li>
+                     <li><a href="https://www.facebook.com/profile.php?id=100016438819431"><i
+                              class="fa fa-facebook"></i></a></li>
                      <li><a href="https://www.google.com/"><i class="fa fa-google-plus"></i></a></li>
-                      <li><i class="bi bi-github"></i></li>
-                     <li><a href="https://www.linkedin.com/in/varun-narang-a89aa2204/"><i class="fa fa-linkedin"></i></a></li>
+                     <li><i class="bi bi-github"></i></li>
+                     <li><a href="https://www.linkedin.com/in/varun-narang-a89aa2204/"><i
+                              class="fa fa-linkedin"></i></a></li>
                      <li><a href="https://twitter.com/VarunNa92666418"><i class="fa fa-twitter"></i></a></li>
-                  </ul><!--/.ul -->
-               </div><!--/.social-icon -->
-            </li><!--/li -->
-         </ul><!--/ul -->
-      </div><!--/.header-right -->
-   </div><!--/.container -->	
+                  </ul>
+                  <!--/.ul -->
+               </div>
+               <!--/.social-icon -->
+            </li>
+            <!--/li -->
+         </ul>
+         <!--/ul -->
+      </div>
+      <!--/.header-right -->
+   </div>
+   <!--/.container -->
 
-</section><!--/.header-->	
+</section>
+<!--/.header-->
 <!--header end-->
 
 <!--menu start-->
@@ -49,62 +53,60 @@
    <div class="container">
       <div class="menubar">
          <nav class="navbar navbar-default">
-         
+
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                  data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="index.html">
-                  <img src="assets/images/logo/logo.png" alt="logo">
-               </a>
-            </div><!--/.navbar-header -->
+
+            </div>
+            <!--/.navbar-header -->
+
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-               <!-- <ul class="nav navbar-nav navbar-right">
-                  <li class="active"><a href="index.html">Home</a></li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="service.html">Service</a></li>
-                  <li><a href="project.html">Project</a></li>
-                  <li><a href="team.html">Team</a></li>
-                  <li><a href="blog.html">Blog</a></li>
-                  <li><a href="contact.html">Contact</a></li>
-                   
-  
+            <div class="collapse navbar-collapse size-buttons" id="bs-example-navbar-collapse-1">
+               <ul class="nav">
+                  <img height='30' width='30' src="assets/images/logo/logo.png" alt="logo">
+                  <h1 class="tcolor">Social</h1>
+                  <li><button mat-button class="nav-button" [routerLink]="['/']">Home</button></li>
+                  <li> <button mat-button class="buttons" [routerLink]="['/']">Home</button></li>
+                  <li><button *ngIf="loggedIn()" mat-button class="buttons"
+                        [routerLink]="['/post/create']">Post</button></li>
+                  <li><button *ngIf="loggedIn()" mat-button class="buttons" [routerLink]="['/post/list']">Feed</button>
+                  </li>
+                  <li><button *ngIf="loggedIn()" mat-button class="buttons"
+                        [routerLink]="['/users/list']">Users</button></li>
+                  <li><button *ngIf="loggedIn()" mat-button class="buttons"
+                        [routerLink]="['/friends/list']">Friends</button></li>
+                  <li><button *ngIf="loggedIn()" mat-button class="buttons"
+                        [routerLink]="['/request/list']">Requests</button></li>
+                  <li><button *ngIf="loggedIn()" mat-button class="buttons"
+                        [routerLink]="['/users/profile']">Profile</button></li>
+                  <li><button *ngIf="!loggedIn()" mat-button class="buttons"
+                        [routerLink]="['/user/login']">LogIn</button></li>
+                  <li><button *ngIf="!loggedIn()" mat-button class="buttons"
+                        [routerLink]="['/user/signup']">SignUp</button></li>
+                  <li><button *ngIf="loggedIn()" mat-raised-button  (click)="Logout()">Logout</button>&nbsp;
+                  </li>
 
-                  <li>
-                     <a href="#">
-                        <span class="lnr lnr-cart"></span>
-                     </a>
-                  </li>
-                  <li class="search">
-                     <form action="">
-                        <input type="text" name="search" placeholder="Search....">
-                        <a href="#">
-                           <span class="lnr lnr-magnifier"></span>
-                        </a>
-                     </form>
-                  </li>
-               </ul> -->
+
+
+
+               </ul>
                <!-- / ul -->
             </div><!-- /.navbar-collapse -->
-         </nav><!--/nav -->
-      </div><!--/.menubar -->
+         </nav>
+         <!--/nav -->
+      </div>
+      <!--/.menubar -->
    </div><!-- /.container -->
 
-</section><!--/#menu-->
+</section>
+<!--/#menu-->
 <!--menu end-->
-   
-   <!-- <button *ngIf="loggedIn()" color="primary" [routerLink]="['/post/create']">Post</button>
-   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/post/list']">Feed</button>
-   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/users/list']">Users</button>
-   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/friends/list']">Friends</button>
-   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/request/list']">Requests</button>
-   <button *ngIf="loggedIn()" color="primary" [routerLink]="['/users/profile']">Profile</button>
-   <button *ngIf="!loggedIn()" color="primary" [routerLink]="['/user/login']">LogIn</button>
-   <button *ngIf="!loggedIn()" color="primary" [routerLink]="['/user/signup']">SignUp</button>
-   <button *ngIf="loggedIn()" color="primary" (click)="Logout()">Logout</button> -->
+
