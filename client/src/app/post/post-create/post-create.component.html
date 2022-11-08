@@ -21,7 +21,7 @@
                 <div class="col-sm-10">
                     <div class="single-news-box news-mb-15 design">
                         <div class="news-box-bg">
-                            <img src="{{url}}{{post.filePath}}" alt="blog image">
+                            <img *ngIf='post.filePath' src="{{url}}{{post.filePath}}" alt="blog image">
                         </div>
                         <div class="news-box-inner">
                             <p class="news-meta">
