@@ -17,6 +17,7 @@ import { LikeModule } from './like/like.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { CommentsModule } from './comments/comments.module';
+import { ChatboxModule } from './chatbox/chatbox.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CommentsModule } from './comments/comments.module';
     CommentsModule,
     UsersModule,
     RequestModule,
+    ChatboxModule,
     HomeModule,
     LikeModule,
     LayoutModule,

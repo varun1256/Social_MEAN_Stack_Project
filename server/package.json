@@ -22,6 +22,9 @@
     "nodemailer": "^6.8.0",
     "otp-generator": "^4.0.0",
     "parse-error": "^0.2.0",
+    "socket.io": "^4.5.3",
+    "socket.io-client": "^4.5.3",
+    "socketio": "^1.0.0",
     "twilio": "^3.83.0",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"

@@ -6,6 +6,7 @@ const userController=require('../controllers/user.controller');
 const requestController=require('../controllers/request.controller');
 const friendsController=require('../controllers/friends.controller');
 const likesController=require('../controllers/likes.controller');
+const chatController=require('../controllers/chat.controller');
 const {upload}=require('../middleware/multer');
 const {imageUpload}=require('../middleware/multer');
 const auth=require('../middleware/auth');
@@ -47,6 +48,9 @@ router.get('/friends/unfriend',auth.verifyToken,friendsController.Unfriend);
 router.post('/like/create',auth.verifyToken,likesController.createLike);
 router.get('/like/destroy',auth.verifyToken,likesController.unLike);
 router.get('/like/list',auth.verifyToken,likesController.likeList);
+
+router.get('/chat/:room',chatController.getChats);
+router.post('/chat/',chatController.saveChat);
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
