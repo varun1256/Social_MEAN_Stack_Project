@@ -28,10 +28,11 @@
                         <app-comments-list [post_id]="post._id"></app-comments-list><br><br>
                     </div><br>
                 </div>
-                <button mat-raised-button class="button1" color="primary" (click)="fetch()">Show More</button>
+             
             </div>
         </div>
     </div>
+    <button mat-raised-button class="button1" color="primary" (click)="fetch()">Show More</button>
 </div>
 <div *ngIf="isListEmpty" class="text-center pt-3">
     <h5 class="text-danger m-0">No Post found</h5>
