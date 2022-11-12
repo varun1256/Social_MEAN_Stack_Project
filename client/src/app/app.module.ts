@@ -23,6 +23,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { NbButtonModule, NbChatModule, NbLayoutModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AuthguardService } from './authguard.service';
 
 
 @NgModule({
@@ -59,7 +60,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 			{ enableTracing: true, relativeLinkResolution: 'legacy' } 
 		)
   ],
-  providers: [],
+  providers: [AuthguardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

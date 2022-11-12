@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 
 import { Message } from '../models/message';
+import { environment } from 'src/environments/environment';
+import { AuthenticationService } from '../authentication/authentication.service';
 interface ChatStatus {
     [sender: string]: boolean;
   };
@@ -17,7 +19,7 @@ interface ChatStatus {
 })
 export class ChatboxService {
 
-  constructor(private db: AngularFirestore,private http: HttpClient) { }
+  constructor(private db: AngularFirestore,private http: HttpClient, private authService: AuthenticationService) { }
   private socket = io('http://localhost:3000');
 
     joinRoom(data)
@@ -67,7 +69,21 @@ export class ChatboxService {
 
         return observable;
     }
-
+    loginProfile(){
+      return new Observable((observer) => {
+        console.log(this.authService.jwtToken());
+        this.http.get(environment.apiUrl + 'user/profile', {
+          headers: {
+            'authentication': this.authService.jwtToken()!
+          }
+        }).subscribe(resp => {
+         observer.next(resp);
+        }, err => {
+          observer.error(err);
+        });
+      });
+  
+     }
     //New
     public getChat(id: string) {
         return this.db.collection('chats').doc(id);
