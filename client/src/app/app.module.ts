@@ -18,6 +18,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { CommentsModule } from './comments/comments.module';
 import { ChatboxModule } from './chatbox/chatbox.module';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { NbButtonModule, NbChatModule, NbLayoutModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
 @NgModule({
@@ -38,6 +43,14 @@ import { ChatboxModule } from './chatbox/chatbox.module';
     AuthenticationModule,
     BrowserAnimationsModule,
     CommonModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    NbThemeModule.forRoot(),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbButtonModule,
+    NbChatModule,
+    NbSpinnerModule,
   
     HttpClientModule,
     PostModule,

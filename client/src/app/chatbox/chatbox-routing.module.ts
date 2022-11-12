@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
+import { Chat2Component } from './chat2/chat2.component';
 
 const routes: Routes = [
-  {path:'chatbox',component:ChatComponent}
+  {path:'chatbox',component:ChatComponent},
+  {path:'user/chatbox' ,component:Chat2Component}
 ];
 
 @NgModule({
