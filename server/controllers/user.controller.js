@@ -1,12 +1,14 @@
 const { User } = require('../models');
 const { Request } = require('../models');
 const otpGenerator = require('otp-generator')
-const twilioLib=require('../lib/twilio')
+const twilioLib = require('../lib/twilio')
 const { to, ReE, ReS } = require('../services/util.services');
 const nodemailer = require('../lib/mailer/nodemailer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const logger = require('../lib/logging');
+const { Comment } = require('../models');
+const { Post } = require('../models');
 const e = require('express');
 const fs = require('fs');
 
@@ -228,39 +230,39 @@ const removeFile = async (req, res) => {
 module.exports.removeFile = removeFile;
 
 const checkEmail = async (req, res) => {
-    displayotp=false;
+    displayotp = false;
     if (!(req.body.email)) {
         logger.error("User-Controller :Email is required");
         return ReE(res, "User-Controller:Email is required");
     }
-    let err,oldUser
+    let err, oldUser
     [err, oldUser] = await to(User.findOne({ email: req.body.email }));
     if (!oldUser) {
         return ReE(res, "User Doesn't Exhist");
     }
-     displayotp=true;
-    return ReS(res, { message: "Profile Photo Removed" ,displayotp : displayotp}, 201);
+    displayotp = true;
+    return ReS(res, { message: "Profile Photo Removed", displayotp: displayotp }, 201);
 }
-module.exports.checkEmail=checkEmail;
+module.exports.checkEmail = checkEmail;
 
-const sendotp=async(req,res)=>{
+const sendotp = async (req, res) => {
     if (!(req.body.email)) {
         logger.error("User-Controller :Email is required");
         return ReE(res, "User-Controller:Email is required");
     }
-  let  OTP= otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
-   let err,user
-   [err, user] = await to(User.findOne({ email: req.body.email }));
-   if (err) {
-       return ReE(res, "User-Controller:Error in finding User");
-   }
-   content='Your OTP for resetting Password :'+OTP;
-  twilioLib.sendOTP(content,user.phone_no);
-  return ReS(res, { message: "OTP sent" ,OTP:OTP}, 201);
+    let OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+    let err, user
+    [err, user] = await to(User.findOne({ email: req.body.email }));
+    if (err) {
+        return ReE(res, "User-Controller:Error in finding User");
+    }
+    content = 'Your OTP for resetting Password :' + OTP;
+    twilioLib.sendOTP(content, user.phone_no);
+    return ReS(res, { message: "OTP sent", OTP: OTP }, 201);
 }
-module.exports.sendotp=sendotp;
+module.exports.sendotp = sendotp;
 
-const resetPassword=async(req,res)=>{
+const resetPassword = async (req, res) => {
     if (!(req.body.email)) {
         logger.error("User-Controller :Email is required");
         return ReE(res, "User-Controller:Email is required");
@@ -269,7 +271,7 @@ const resetPassword=async(req,res)=>{
         logger.error("User-Controller :Password is required");
         return ReE(res, "User-Controller:Password is required");
     }
-    let err,user
+    let err, user
     [err, user] = await to(User.findOne({ email: req.body.email }));
     if (err) {
         return ReE(res, "User-Controller:Error in finding User");
@@ -279,36 +281,102 @@ const resetPassword=async(req,res)=>{
         logger.error("User-Controller :Password is not encrypted");
         return ReE(res, "User-Controller:Password is not encrypted");
     }
-    user.password=encryptedPassword;
-    [err,save]=await to(user.save());
+    user.password = encryptedPassword;
+    [err, save] = await to(user.save());
     if (err) {
         logger.error("User-Controller :User is not saved");
         return ReE(res, "User-Controller:User is not saved");
     }
-    return ReS(res, { message: "Password changed Successfully"}, 201);
+    return ReS(res, { message: "Password changed Successfully" }, 201);
 }
-module.exports.resetPassword=resetPassword;
+module.exports.resetPassword = resetPassword;
 
-const sendotpMail=async(req,res)=>{
+const sendotpMail = async (req, res) => {
     if (!(req.body.email)) {
         logger.error("User-Controller :Email is required");
         return ReE(res, "User-Controller:Email is required");
     }
-  let  OTP= otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
-   let err,user
-   [err, user] = await to(User.findOne({ email: req.body.email }));
-   if (err) {
-       return ReE(res, "User-Controller:Error in finding User");
-   }
-   content='Your OTP for resetting Password :'+OTP;
-   
-   let mailDetails={};
-   mailDetails.to = user.email;
-   mailDetails.subject='Resetting Password';
-   mailDetails.text=content;
- 
-   nodemailer.sendmail(mailDetails);
+    let OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+    let err, user
+    [err, user] = await to(User.findOne({ email: req.body.email }));
+    if (err) {
+        return ReE(res, "User-Controller:Error in finding User");
+    }
+    content = 'Your OTP for resetting Password :' + OTP;
 
-  return ReS(res, { message: "OTP sent" ,OTP:OTP}, 201);
+    let mailDetails = {};
+    mailDetails.to = user.email;
+    mailDetails.subject = 'Resetting Password';
+    mailDetails.text = content;
+
+    nodemailer.sendmail(mailDetails);
+
+    return ReS(res, { message: "OTP sent", OTP: OTP }, 201);
 }
-module.exports.sendotpMail=sendotpMail;
+module.exports.sendotpMail = sendotpMail;
+
+const deleteUser = async (req, res) => {
+    if (!req.user.user_id) {
+        logger.error("User-Controller :User is not authenticated");
+        return ReE(res, "User-Controller:User is not authenticated");
+    }
+
+    //Deleting User's Post with it's comments
+
+    [err, postList] = await to(Post.find({ 'user_id': req.user.user_id }));
+    if (err) {
+        return ReE(res, "User-Controller:Posts List is not fetched");
+    }
+
+    for (let p of postList) {
+        await Comment.deleteMany({ 'post_id': p._id });
+        let post
+        [err, post] = await to(Post.findById(p._id));
+        if (err) {
+            return ReE(res, err, 422);
+        }
+        if (post.filePath) {
+            fs.unlink(`${post.filePath}`, () => {
+                console.log("test");
+            });
+        }
+        
+    }
+    await Post.deleteMany({'user_id': req.user.user_id });
+
+    //Deleting User's Comment from all the Posts
+
+    [err, commentsList] = await to(Comment.find({ 'user_id': req.user.user_id }));
+    if (err) {
+        return ReE(res, "User-Controller:Comments List is not fetched");
+    }
+    for(let c of commentsList){
+        [err,post]=await to(Post.findById(c.post_id));
+        if(err){
+            return ReE(res, "User-Controller:Post is not fetched");
+        }
+           console.log(post.comments);
+        let comments1 = []
+        for (let i = 0; i < post.comments.length; i++) {
+            if (post.comments[i] != c._id) {
+                comments1.push(post.comments[i]);
+            }
+        }
+        let size1 = post.comments.length;
+        for (let i = 0; i < size1; i++) {
+            post.comments.pop();
+        }
+        for (let i = 0; i < comments1.length; i++) {
+            post.comments.push(comments1[i]);
+        }
+        [err, post] = await to(post.save());
+        if (err) {
+            return ReE(res, "Users-Controller:Post is not saved");
+        }
+    }
+    await Comment.deleteMany({ 'user_id': req.user.user_id });
+
+    await User.deleteOne({'_id':req.user.user_id});
+    return ReS(res, { message: "User is Deleted" }, 201);
+}
+module.exports.deleteUser = deleteUser;

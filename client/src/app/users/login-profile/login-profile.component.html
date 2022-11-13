@@ -135,6 +135,9 @@
 <div *ngIf="showsetting" class="edit-profile">
   <button mat-button [routerLink]="['/users/edit/' + user._id]">Edit Profile</button>
 </div>
+<div *ngIf="showsetting" class="edit-profile">
+  <button mat-button (click)="deleteUser()">Delete Profile</button>
+</div>
 <br> 
     </div><!--/.about-history-content-->
   </div><!--/.container-->
