@@ -4,12 +4,13 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { LoginProfileComponent } from './login-profile/login-profile.component';
 import { UsersProfileComponent } from './users-profile/users-profile.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { AuthguardService } from '../authguard.service';
 
 const routes: Routes = [
-  {path:'users/list',component:UsersListComponent},
-  {path:'users/view/:id',component:UsersProfileComponent},
-  {path:'users/profile',component:LoginProfileComponent},
-  {path:'users/edit/:id',component:ProfileEditComponent}
+  {path:'users/list',component:UsersListComponent,canActivate:[AuthguardService]},
+  {path:'users/view/:id',component:UsersProfileComponent,canActivate:[AuthguardService]},
+  {path:'users/profile',component:LoginProfileComponent,canActivate:[AuthguardService]},
+  {path:'users/edit/:id',component:ProfileEditComponent,canActivate:[AuthguardService]}
 ];
 
 @NgModule({

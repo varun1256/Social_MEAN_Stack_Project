@@ -1,0 +1,47 @@
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <h2 class="text-center">Random Chat </h2>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <label for="roomInput">Choose room</label>
+            <select name="roomInput" id="roomInput" class="form-control" [(ngModel)]="room">
+                <option value="General 1">General 1</option>
+                <option value="General 2">General 2</option>
+                <option value="General 3">General 3</option>
+                <option value="Cricket">Cricket</option>
+                <option value="Football">Football</option>
+                <option value="Friendship">Friendship</option>
+            </select>
+        </div>
+        <div class="col sm-2">
+            <div style="margin-top:19px;" class="pull-right">
+                <button type="button" class="btn btn-primary" (click)="join()">Join</button>
+                <button type="button" class="btn btn-default" (click)="leave()">Leave</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="overflow:scroll">
+        <div style="height:200px; padding:15px;">
+            <div *ngFor="let item of messageArray">
+
+                <div class="small p-2 me-3 mb-3 text-white rounded-3 bg-warning " style="width:40vw; margin-left:58vw;"
+                    *ngIf="user==item.user"><b>You : {{item.message}}</b></div>
+                <div class="small p-2 ms-3 mb-3 rounded-3" style="background-color: green; color:white; width:40vw ;"
+                    *ngIf="user!=item.user"><b>{{item.user}} : </b> {{item.message}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <input type="text" class="form-control" [(ngModel)]="messageText">
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-success pull-right" (click)="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+<br>

@@ -16,10 +16,10 @@ export class LoginProfileComponent implements OnInit {
     last_name: '',
     email: '',
     phone_no: '',
-    filePath:'',
+    filePath: '',
     friends: []
   }
-  url=environment.apiUrl
+  url = environment.apiUrl
   showpost = false;
   showsetting = false;
   constructor(private usersService: UsersService, private router: Router, private route: ActivatedRoute, private _snackBar: SnackBarService) {
@@ -40,5 +40,15 @@ export class LoginProfileComponent implements OnInit {
   }
   showSetting() {
     this.showsetting = !this.showsetting
+  }
+  deleteUser() {
+    alert('Are You Sure You Want to Delete Your Account');
+    this.usersService.RemoveUser().subscribe(resp => {
+      this._snackBar.openSnackBar("Account Deleted", "X");
+      localStorage.removeItem('token');
+      this.router.navigate(['user/login']);
+    }, err => {
+      this._snackBar.openSnackBar(err.error.error, "X");
+    });
   }
 }

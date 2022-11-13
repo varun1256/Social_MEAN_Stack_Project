@@ -80,6 +80,8 @@
                   <li><button *ngIf="loggedIn()" mat-button class="buttons" [routerLink]="['/post/list']">Feed</button>
                   </li>
                   <li><button *ngIf="loggedIn()" mat-button class="buttons"
+                     [routerLink]="['/chatbox']">Chat</button></li>
+                  <li><button *ngIf="loggedIn()" mat-button class="buttons"
                         [routerLink]="['/users/list']">Users</button></li>
                   <li><button *ngIf="loggedIn()" mat-button class="buttons"
                         [routerLink]="['/friends/list']">Friends</button></li>

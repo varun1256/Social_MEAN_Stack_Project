@@ -17,6 +17,13 @@ import { LikeModule } from './like/like.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { CommentsModule } from './comments/comments.module';
+import { ChatboxModule } from './chatbox/chatbox.module';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { NbButtonModule, NbChatModule, NbLayoutModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AuthguardService } from './authguard.service';
 
 
 @NgModule({
@@ -29,6 +36,7 @@ import { CommentsModule } from './comments/comments.module';
     CommentsModule,
     UsersModule,
     RequestModule,
+    ChatboxModule,
     HomeModule,
     LikeModule,
     LayoutModule,
@@ -36,6 +44,14 @@ import { CommentsModule } from './comments/comments.module';
     AuthenticationModule,
     BrowserAnimationsModule,
     CommonModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+  //  NbThemeModule.forRoot(),
+   // NbLayoutModule,
+  //  NbEvaIconsModule,
+  //  NbButtonModule,
+  //  NbChatModule,
+  //  NbSpinnerModule,
   
     HttpClientModule,
     PostModule,
@@ -44,7 +60,7 @@ import { CommentsModule } from './comments/comments.module';
 			{ enableTracing: true, relativeLinkResolution: 'legacy' } 
 		)
   ],
-  providers: [],
+  providers: [AuthguardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

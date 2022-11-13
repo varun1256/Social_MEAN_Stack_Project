@@ -111,5 +111,19 @@ export class UsersService {
     });
 
    }
+   RemoveUser(){
+    return new Observable((observer) => {
+      this.http.delete(environment.apiUrl + 'user/delete', {
+        headers: {
+          'authentication': this.authService.jwtToken()!
+        }
+      }).subscribe(resp => {
+        observer.next(resp);
+      }, err => {
+        observer.error(err);
+      });
+    });
+
+   }
 
 }

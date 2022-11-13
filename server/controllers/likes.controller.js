@@ -85,15 +85,22 @@ const likeList = async (req, res) => {
         if (err) {
             return ReE(res, "Likes-Controller:User is not fetched");
         }
-        let tempuser={
-            first_name:'',
-            last_name:'',
-            filePath:''
-            }
-            tempuser.first_name=user.first_name;
-            tempuser.last_name=user.last_name;
-            tempuser.filePath=user.filePath;
+        let tempuser = {
+            first_name: '',
+            last_name: '',
+            filePath: ''
+        }
+        if (user) {
+            tempuser.first_name = user.first_name;
+            tempuser.last_name = user.last_name;
+            tempuser.filePath = user.filePath;
+        }
+        else {
+            tempuser.first_name = 'Deleted User';
+        }
+
         Likes.push(tempuser);
+
     }
     console.log(Likes);
     return ReS(res, { message: "Successfully  fetch Likes", Likes: JSON.stringify(Likes) }, 201);
